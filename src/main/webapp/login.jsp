@@ -5,16 +5,16 @@
 		<meta charset="utf-8" />
 		<title>登录页面</title>
 		<!-- basic styles -->
-		<link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.min.css" />
+		<link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/resources/assets/css/font-awesome.min.css" />
 		<!-- fonts -->
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 		<!-- ace styles -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="/resources/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
 		<!-- js -->
-		<script src="${pageContext.request.contextPath}/resources/jquery/jquery-1.11.1.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/bootstrap3.3.7/js/bootstrap.min.js"></script>
+		<script src="/resources/jquery/jquery-1.11.1.js"></script>
+		<script src="/resources/bootstrap3.3.7/js/bootstrap.min.js"></script>
 		<script>
 			$(function(){
 				$("#button").on("click",function(){

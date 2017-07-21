@@ -7,8 +7,8 @@
 		<meta charset="utf-8" />
 		<title>主页面</title>
 		<!-- basic styles -->
-		<link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.min.css" />
+		<link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/resources/assets/css/font-awesome.min.css" />
 		
 		<!-- page specific plugin styles -->
 		
@@ -16,11 +16,11 @@
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 		
 		<!-- ace styles -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ace-rtl.min.css" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="/resources/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="/resources/assets/css/ace-skins.min.css" />
 		
-		<script src="${pageContext.request.contextPath}/resources/assets/js/ace-extra.min.js"></script>
+		<script src="/resources/assets/js/ace-extra.min.js"></script>
 	</head>
 
 	<body>
@@ -45,7 +45,7 @@
 					
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${pageContext.request.contextPath}/resources/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="/resources/assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>欢迎你</small>
 									${username}
@@ -367,16 +367,16 @@
 				<i class="icon-double-angle-up icon-only bigger-110"></i>
 			</a>
 
-		<script src="${pageContext.request.contextPath}/resources/jquery/jquery-1.11.1.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/assets/js/typeahead-bs2.min.js"></script>
+		<script src="/resources/jquery/jquery-1.11.1.js"></script>
+		<script src="/resources/assets/js/bootstrap.min.js"></script>
+		<script src="/resources/assets/js/typeahead-bs2.min.js"></script>
 		
 		<!-- ace scripts -->
 		<!-- 必须引入 ,否则导航栏不能用 -->
-		<script src="${pageContext.request.contextPath}/resources/assets/js/ace-elements.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/assets/js/ace.min.js"></script>
+		<script src="/resources/assets/js/ace-elements.min.js"></script>
+		<script src="/resources/assets/js/ace.min.js"></script>
 		
-		<script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script> 
+		<script src="/resources/layer/layer.js"></script> 
 		
 		
 		<!-- inline scripts related to this page -->
