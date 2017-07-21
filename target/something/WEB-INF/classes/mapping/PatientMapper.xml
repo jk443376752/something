@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buy.tsg.mapper.PatientMapper" >
+  <resultMap id="BaseResultMap" type="com.buy.tsg.entity.Patient" >
+    <id column="pa_id" property="paId" jdbcType="INTEGER" />
+    <result column="pa_name" property="paName" jdbcType="VARCHAR" />
+    <result column="pa_status" property="paStatus" jdbcType="VARCHAR" />
+    <result column="pa_case_history" property="paCaseHistory" jdbcType="VARCHAR" />
+    <result column="pa_case_history_num" property="paCaseHistoryNum" jdbcType="VARCHAR" />
+    <result column="pa_clinic_time" property="paClinicTime" jdbcType="TIMESTAMP" />
+    <result column="pa_appointment_time" property="paAppointmentTime" jdbcType="TIMESTAMP" />
+    <result column="pa_doctor_name" property="paDoctorName" jdbcType="VARCHAR" />
+    <result column="pa_phone" property="paPhone" jdbcType="VARCHAR" />
+    <result column="pa_attendance_status" property="paAttendanceStatus" jdbcType="VARCHAR" />
+    <result column="pa_receivable" property="paReceivable" jdbcType="DOUBLE" />
+    <result column="pa_net_receipts" property="paNetReceipts" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- 给查询添加条件 -->
+     <sql id="wheresql">
+        <where>
+        </where>
+    </sql>
+    <!-- 分页查询  -->
+    <select id="queryList"  parameterType="com.buy.tsg.query.PatientQueryParameter" resultType="map">
+        select  pa_id, pa_name, pa_status, pa_case_history, pa_case_history_num, pa_clinic_time, 
+	    pa_appointment_time, pa_doctor_name, pa_phone, pa_attendance_status, pa_receivable, 
+	    pa_net_receipts from t_patient 
+        <include refid="wheresql" />
+        limit  #{beginIndex},#{pageSize}
+    </select>
+    
+    <!-- 拿到一共有多少条数据 -->
+    <select id="totalCount" resultType="int" parameterType="com.buy.tsg.query.PatientQueryParameter">
+        select count(*) from t_patient
+        <include refid="wheresql" />
+    </select>
+  
+  <sql id="Base_Column_List" >
+    pa_id, pa_name, pa_status, pa_case_history, pa_case_history_num, pa_clinic_time, 
+    pa_appointment_time, pa_doctor_name, pa_phone, pa_attendance_status, pa_receivable, 
+    pa_net_receipts
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_patient
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteTableList" parameterType="int">
+  	delete from t_patient where pa_id =#{paId}
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_patient
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.buy.tsg.entity.Patient" >
+    insert into t_patient (pa_id, pa_name, pa_status, 
+      pa_case_history, pa_case_history_num, pa_clinic_time, 
+      pa_appointment_time, pa_doctor_name, pa_phone, 
+      pa_attendance_status, pa_receivable, pa_net_receipts
+      )
+    values (#{paId,jdbcType=INTEGER}, #{paName,jdbcType=VARCHAR}, #{paStatus,jdbcType=VARCHAR}, 
+      #{paCaseHistory,jdbcType=VARCHAR}, #{paCaseHistoryNum,jdbcType=VARCHAR}, #{paClinicTime,jdbcType=TIMESTAMP}, 
+      #{paAppointmentTime,jdbcType=TIMESTAMP}, #{paDoctorName,jdbcType=VARCHAR}, #{paPhone,jdbcType=VARCHAR}, 
+      #{paAttendanceStatus,jdbcType=VARCHAR}, #{paReceivable,jdbcType=DOUBLE}, #{paNetReceipts,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.buy.tsg.entity.Patient" >
+    insert into t_patient
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paId != null" >
+        pa_id,
+      </if>
+      <if test="paName != null" >
+        pa_name,
+      </if>
+      <if test="paStatus != null" >
+        pa_status,
+      </if>
+      <if test="paCaseHistory != null" >
+        pa_case_history,
+      </if>
+      <if test="paCaseHistoryNum != null" >
+        pa_case_history_num,
+      </if>
+      <if test="paClinicTime != null" >
+        pa_clinic_time,
+      </if>
+      <if test="paAppointmentTime != null" >
+        pa_appointment_time,
+      </if>
+      <if test="paDoctorName != null" >
+        pa_doctor_name,
+      </if>
+      <if test="paPhone != null" >
+        pa_phone,
+      </if>
+      <if test="paAttendanceStatus != null" >
+        pa_attendance_status,
+      </if>
+      <if test="paReceivable != null" >
+        pa_receivable,
+      </if>
+      <if test="paNetReceipts != null" >
+        pa_net_receipts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paId != null" >
+        #{paId,jdbcType=INTEGER},
+      </if>
+      <if test="paName != null" >
+        #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="paStatus != null" >
+        #{paStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paCaseHistory != null" >
+        #{paCaseHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="paCaseHistoryNum != null" >
+        #{paCaseHistoryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="paClinicTime != null" >
+        #{paClinicTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paAppointmentTime != null" >
+        #{paAppointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paDoctorName != null" >
+        #{paDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="paPhone != null" >
+        #{paPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paAttendanceStatus != null" >
+        #{paAttendanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paReceivable != null" >
+        #{paReceivable,jdbcType=DOUBLE},
+      </if>
+      <if test="paNetReceipts != null" >
+        #{paNetReceipts,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.buy.tsg.entity.Patient" >
+    update t_patient
+    <set >
+      <if test="paName != null" >
+        pa_name = #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="paStatus != null" >
+        pa_status = #{paStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paCaseHistory != null" >
+        pa_case_history = #{paCaseHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="paCaseHistoryNum != null" >
+        pa_case_history_num = #{paCaseHistoryNum,jdbcType=VARCHAR},
+      </if>
+      <if test="paClinicTime != null" >
+        pa_clinic_time = #{paClinicTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paAppointmentTime != null" >
+        pa_appointment_time = #{paAppointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paDoctorName != null" >
+        pa_doctor_name = #{paDoctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="paPhone != null" >
+        pa_phone = #{paPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paAttendanceStatus != null" >
+        pa_attendance_status = #{paAttendanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paReceivable != null" >
+        pa_receivable = #{paReceivable,jdbcType=DOUBLE},
+      </if>
+      <if test="paNetReceipts != null" >
+        pa_net_receipts = #{paNetReceipts,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.buy.tsg.entity.Patient" >
+    update t_patient
+    set pa_name = #{paName,jdbcType=VARCHAR},
+      pa_status = #{paStatus,jdbcType=VARCHAR},
+      pa_case_history = #{paCaseHistory,jdbcType=VARCHAR},
+      pa_case_history_num = #{paCaseHistoryNum,jdbcType=VARCHAR},
+      pa_clinic_time = #{paClinicTime,jdbcType=TIMESTAMP},
+      pa_appointment_time = #{paAppointmentTime,jdbcType=TIMESTAMP},
+      pa_doctor_name = #{paDoctorName,jdbcType=VARCHAR},
+      pa_phone = #{paPhone,jdbcType=VARCHAR},
+      pa_attendance_status = #{paAttendanceStatus,jdbcType=VARCHAR},
+      pa_receivable = #{paReceivable,jdbcType=DOUBLE},
+      pa_net_receipts = #{paNetReceipts,jdbcType=DOUBLE}
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </update>
+</mapper>
