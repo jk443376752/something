@@ -167,8 +167,11 @@
 						    //点击确认回调
 						    yes: function(index, layero){
 				    	       if(data.is_abnormal==1){
+				    	    	   layer.close(index);
 					    	    	window.location.href="/login"; 
 					      	      	return;
+					    	   }else{
+					    		   layer.close(index);
 					    	   }
 						    },
 						    //点击关闭回调
