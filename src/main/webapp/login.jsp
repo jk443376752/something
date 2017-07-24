@@ -15,15 +15,23 @@
 		<!-- js -->
 		<script src="/resources/jquery/jquery-1.11.1.js"></script>
 		<script src="/resources/bootstrap3.3.7/js/bootstrap.min.js"></script>
+		<script src="/resources/layer/layer.js"></script>
 		<script>
 			$(function(){
 				$("#button").on("click",function(){
 			 		var username = $("#username").val();
 					var password = $("#password").val();
 					if(username.length==0 || password.length==0){
-						$("#myContent").empty();
+/* 						$("#myContent").empty();
 		    	    	$("#myContent").append("<h4>用户名或密码不能为空<h4>");
-						$('#myModal').modal('show');
+						$('#myModal').modal('show'); */
+						layer.alert('用户名或密码不能为空!',{
+							title:'温馨提示',
+							//大小
+							area: ['350px', '180px'],
+							//坐标
+							offset: ['250px', '585px']
+						});
 						return;
 					}
 					var loginUser = [];
@@ -43,9 +51,16 @@
 		    	      }
 		    	      if(data.is_abnormal==0){
 		    	    	  $("#myContent").empty();
-		    	    	  var remark = "<h4>"+data.remark+"<h4>";
-		    	    	  $("#myContent").append(remark);
-		    	    	  $('#myModal').modal('show');
+		    	    	  var remark = data.remark;
+/* 		    	    	  $("#myContent").append(remark);
+		    	    	  $('#myModal').modal('show'); */
+						  layer.alert(remark,{
+							 title:'温馨提示',
+							 //大小
+							 area: ['350px', '180px'],
+							 //坐标
+							 offset: ['250px', '585px']
+						  });
 				 		  var username = $("#username").empty();
 						  var password = $("#password").empty();
 		      	      	return;
@@ -66,7 +81,7 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="red">somthing项目</span>
+									<span class="red">something管理系统</span>
 								</h1>
 							</div>
 
@@ -128,7 +143,7 @@
 											</div>
 
 											<div>
-												<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+												<a href="/patient/register" class="user-signup-link">
 													注册
 													<i class="icon-arrow-right"></i>
 												</a>
@@ -143,28 +158,28 @@
 			</div>
 			
 			
-			<!-- bootstrap模态框开始 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			    <div class="modal-dialog">
-			        <div class="modal-content">
-			            <div class="modal-header">
-			                <button type="button" class="close" data-dismiss="modal" 
-			                        aria-hidden="true">×
-			                </button>
-			                <h4 class="modal-title" id="myModalLabel">
-			                   		<b>温馨提示:</b> 
-			                </h4>
-			            </div>
-			            <div class="modal-body" id="myContent">
-			            </div>
-			            <div class="modal-footer">
-			                <button type="button" class="btn btn-default" 
-			                        data-dismiss="modal">确认
-			                </button>
-			            </div>
-			        </div><!-- /.modal-content -->
-			    </div><!-- /.modal-dialog -->
-			</div>
+<!-- 			<!-- bootstrap模态框开始 --> -->
+<!-- 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
+<!-- 			    <div class="modal-dialog"> -->
+<!-- 			        <div class="modal-content"> -->
+<!-- 			            <div class="modal-header"> -->
+<!-- 			                <button type="button" class="close" data-dismiss="modal"  -->
+<!-- 			                        aria-hidden="true">× -->
+<!-- 			                </button> -->
+<!-- 			                <h4 class="modal-title" id="myModalLabel"> -->
+<!-- 			                   		<b>温馨提示:</b>  -->
+<!-- 			                </h4> -->
+<!-- 			            </div> -->
+<!-- 			            <div class="modal-body" id="myContent"> -->
+<!-- 			            </div> -->
+<!-- 			            <div class="modal-footer"> -->
+<!-- 			                <button type="button" class="btn btn-default"  -->
+<!-- 			                        data-dismiss="modal">确认 -->
+<!-- 			                </button> -->
+<!-- 			            </div> -->
+<!-- 			        </div>/.modal-content -->
+<!-- 			    </div>/.modal-dialog -->
+<!-- 			</div> -->
 			<!-- 模态框结束 -->
 	</body>
 </div>

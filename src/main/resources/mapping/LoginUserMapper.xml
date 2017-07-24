@@ -21,6 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectLoginUserByUserName" parameterType="java.lang.String" resultType="com.buy.tsg.entity.LoginUser">
+  	select * from t_loginuser where username =#{username}
+  </select>
+  
   <select id="checkUser" parameterType="com.buy.tsg.entity.LoginUser" resultType="com.buy.tsg.entity.LoginUser">
   	select * from t_loginuser where username=#{username} and password=#{password}
   </select>
@@ -37,6 +41,11 @@
       #{sex,jdbcType=TINYINT}, #{age,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{logintime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR})
   </insert>
+  
+  <insert id="insertRegisterUser" parameterType="com.buy.tsg.entity.LoginUser">
+  	insert into t_loginuser (username,password ,createtime) value(#{username},#{password},#{createtime})
+  </insert>
+  
   <insert id="insertSelective" parameterType="com.buy.tsg.entity.LoginUser" >
     insert into t_loginuser
     <trim prefix="(" suffix=")" suffixOverrides="," >

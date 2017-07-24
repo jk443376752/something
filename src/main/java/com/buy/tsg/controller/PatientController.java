@@ -16,10 +16,16 @@ import com.buy.tsg.utils.ResponseInfo;
 
 @Controller
 @RequestMapping("/patient")
-public class PatientCntroller {
+public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
+	
+	@RequestMapping("/register")
+	public String register(){
+		return "register";
+	}
+	
 	
 	@RequestMapping("/getPatientTableList")
 	@ResponseBody

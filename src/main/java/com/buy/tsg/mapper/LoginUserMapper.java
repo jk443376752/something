@@ -19,4 +19,8 @@ public interface LoginUserMapper {
     int updateByPrimaryKey(LoginUser record);
 
     LoginUser checkUser(LoginUser user);
+    
+	LoginUser selectLoginUserByUserName(String username);
+
+	void insertRegisterUser(LoginUser loginUserParameter);
 }

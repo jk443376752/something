@@ -40,6 +40,7 @@ public class LoginController {
 		
 		return userLoginService.getUser(id);
 		
+		
 	}
 	
 	@RequestMapping(value="/login/check",method={RequestMethod.POST})
