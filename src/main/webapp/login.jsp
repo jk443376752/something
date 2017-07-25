@@ -30,7 +30,7 @@
 							//大小
 							area: ['350px', '180px'],
 							//坐标
-							offset: ['250px', '585px']
+							offset: '100px'
 						});
 						return;
 					}
@@ -59,7 +59,7 @@
 							 //大小
 							 area: ['350px', '180px'],
 							 //坐标
-							 offset: ['250px', '585px']
+							 offset: '100px'
 						  });
 				 		  var username = $("#username").empty();
 						  var password = $("#password").empty();

@@ -584,8 +584,9 @@
 			
 			function deleteTableList(id){
 				layer.confirm('你确定要删除吗?', {
-						area: ['350px', '200px'], //宽高
-						  btn: ['确定','取消'] //按钮
+						area: ['350px', '180px'], //宽高
+						offset: '100px',
+						btn: ['确定','取消'] //按钮
 						}, function(){
 							//点确认执行的方法
 							$.post("patient/deleteTableList",
