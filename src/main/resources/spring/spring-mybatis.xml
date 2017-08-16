@@ -60,7 +60,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
     <!-- 切面   -->
     <aop:config>
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.buy.tsg..*.*(..))" />
+			expression="execution(* com.buy.tsg.service..*.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
