@@ -37,7 +37,7 @@ public class ResponseInfo {
 	private Map<String, Object> dataMap = new HashMap<String, Object>();
 	
 	/**
-	 *  mabatis ,返回Map , 传入List<Map<String ,Object>>类型的数据
+	 *  mybatis ,返回Map , 传入List<Map<String ,Object>>类型的数据
 	 */
 	private List<Map<String, Object>> dataMapList  = new ArrayList<Map<String, Object>>() ;
 	

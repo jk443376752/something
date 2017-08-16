@@ -4,38 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>login2</title>
 <script type="text/javascript" src="/resources/jquery/jquery.js"></script>
 
 <body>
-
-<div style="">
-	<table style="padding-top:20px">
-		<div style="position:fixed; top:0px ;background-color: yellow;">你好啊!!!!</div>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-				</tr>
-				
-				<tr>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-				</tr>
-				
-			 <tr>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-			</tr>
-			
-			</tbody>
-		</table>
-	</div>
+123456789
 </body>
 </html>
