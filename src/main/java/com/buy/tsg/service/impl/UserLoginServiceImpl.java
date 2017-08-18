@@ -1,9 +1,13 @@
 package com.buy.tsg.service.impl;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.mapper.LoginUserMapper;
@@ -47,9 +51,10 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
             if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
                 ip = request.getRemoteAddr();      
             }   
-			System.out.println("ip-----"+ip);
+//			System.out.println("ip-----"+ip);
 			loginUserNew.setIp(ip);
 			loginUserNew.setLogintime(null);
+			loginUserNew.setId(user.getId());
 			loginUserMapper.updateLoginUser(loginUserNew);
 			redisServiceImpl.set("loginUser", loginUser);
 			responseInfo.setRemark("登录成功");
@@ -67,5 +72,19 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 		redisServiceImpl.del("loginUser");
 		HttpSessionUtil.getSession().removeAttribute("username");
 	}
+	
+	
+	@Override
+//	@Transactional(value="transactionManager", propagation = Propagation.REQUIRED ,rollbackFor=Exception.class)
+	public void updateLoginUser() {
+		LoginUser loginUser = new LoginUser();
+		loginUser.setIp("10086");
+		loginUser.setCreatetime(new Date());
+		loginUser.setId(8);
+		loginUserMapper.updateLoginUser(loginUser);
+		
+//		int i = 1/0;
+	}
+
 
 }

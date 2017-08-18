@@ -26,6 +26,7 @@ public class LoginInterceptor implements  HandlerInterceptor{
         if(url.contains("/login")||url.contains("/")||url.contains("")) {
             return true;
         }
+        
         if(loginUser == null) {
             response.sendRedirect("/login.jsp");
         }

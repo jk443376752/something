@@ -9,10 +9,15 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd    
                         http://www.springframework.org/schema/mvc    
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
-    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->  
-    <context:component-scan base-package="com.buy.tsg.controller" /> 
+   
+   
     <!-- 开启注解支持 -->
-   	<mvc:annotation-driven />
+	 <mvc:annotation-driven/>
+	 
+	<context:component-scan base-package="com.buy.tsg.controller">
+		   <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+           <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
    	
 <!--    	fasterxm转换为jackson -->
 	<bean id="mappingJacksonHttpMessageConverter"  
@@ -33,6 +38,8 @@
     
 	<!-- 对静态资源的处理 -->
 	<!-- 	<mvc:default-servlet-handler/> -->
+	
+	
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <!-- 配置视图解析器 -->
    	<bean
@@ -42,7 +49,7 @@
 	</bean>  
 	
 	<!-- 定义全局异常处理 -->
-	<!--z 	<bean id="exceptionResolver" class="com.buy.tsg.handlerexception.MyHandlerException"></bean> -->
+	<!-- 	<bean id="exceptionResolver" class="com.buy.tsg.handlerexception.MyHandlerException"></bean> -->
 	
 	
 <!-- 定义拦截器 -->
@@ -50,21 +57,17 @@
     	<bean class="com.buy.tsg.intercepter.LoginInterceptor"></bean>
     </mvc:interceptors>
     
-<!-- 定义拦截器 -->
-<!-- 
-    <mvc:interceptors>
-        <mvc:interceptor>
-        <mvc:mapping path="/*.action" />
-        <mvc:mapping path="/*.jsp" />
-        <mvc:mapping path="/*.html" />
-        <mvc:mapping path="/*.htm" />
-        <mvc:exclude-mapping path="/login.jsp"/>
-        <mvc:exclude-mapping path="/register.jsp"/>
-        <mvc:exclude-mapping path="/about.jsp"/>
-        <bean class="com.course.interceptor.IdentityInterceptor"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
--->
+<!-- 定义拦截器说明 -->
+<!-- <mvc:interceptors> -->
+        <!--对所有的请求记性拦截-->
+        <!--<beans:bean class="com.sunp.common.interceptor.Myinterceptor"/>-->
+        <!--对特定的请求进行拦截-->
+<!--         <mvc:interceptor> -->
+<!--             <mapping path="/kfc/brands/brand1/*"/> -->
+<!--             <beans:bean class="com.sunp.common.interceptor.Myinterceptor"/> -->
+<!--         </mvc:interceptor> -->
+<!-- </mvc:interceptors> -->
+
     
 	<!-- 文件上传 -->	
     <bean id="multipartResolver"    

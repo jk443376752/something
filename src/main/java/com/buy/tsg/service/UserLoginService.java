@@ -12,4 +12,7 @@ public interface UserLoginService {
 	
 	void LoginOut();
 	
+	void updateLoginUser();
+
+	
 }

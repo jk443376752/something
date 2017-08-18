@@ -23,4 +23,6 @@ public interface LoginUserMapper {
 	LoginUser selectLoginUserByUserName(String username);
 
 	void insertRegisterUser(LoginUser loginUserParameter);
+	
+	
 }
