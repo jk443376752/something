@@ -22,13 +22,16 @@ public class LoginInterceptor implements  HandlerInterceptor{
 		if(loginUser!=null){
 			HttpSessionUtil.getRequest().setAttribute("username", loginUser.getUsername());
 		}
+		
         String url = request.getRequestURL().toString();
-        if(url.contains("/login")||url.contains("/")||url.contains("")) {
+        
+        if(url.contains("/login")) {
             return true;
         }
         
         if(loginUser == null) {
             response.sendRedirect("/login.jsp");
+            return false;
         }
         
         return true;
