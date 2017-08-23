@@ -13,9 +13,9 @@
     <import resource="classpath*:META-INF/cxf/cxf-extension-soap.xml" />  
     <import resource="classpath*:META-INF/cxf/cxf-servlet.xml" />  
   
-    <!--下面的class属性值一定要跟你项目中服务实现类的包路径完全一致-->  
+    <!--暴露webService接口-->  
     <bean id="hello" class="com.buy.tsg.service.impl.SendServiceImpl"/>  
-    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/HelloWorld" /> 
+    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/helloWorldWebservice" /> 
     
-    <!-- webservice发布地址http://localhost:8080/webservice/HelloWorld?wsdl --> 
+    <!-- webservice发布地址http://localhost:8080/webservice/helloWorldWebservice?wsdl --> 
 </beans>  

@@ -46,7 +46,6 @@
     
     <!-- webservice -->
     <servlet>  
-	    <display-name>CXF Servlet</display-name>  
 	    <servlet-name>CXFServlet</servlet-name>  
 	    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>  
 	    <load-on-startup>2</load-on-startup>  

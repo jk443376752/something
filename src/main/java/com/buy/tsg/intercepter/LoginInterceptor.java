@@ -18,22 +18,26 @@ public class LoginInterceptor implements  HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
 		LoginUser loginUser = redisServiceImpl.get("loginUser",LoginUser.class);
+		
 		if(loginUser!=null){
 			HttpSessionUtil.getRequest().setAttribute("username", loginUser.getUsername());
 		}
 		
         String url = request.getRequestURL().toString();
         
-        if(url.contains("/login")) {
+        if(url.equals("http://localhost:8080/")||url.equals("http://localhost:8080")||
+        		url.equals("http://localhost:8080/login") || url.equals("http://localhost:8080/login.jsp")) {
             return true;
+        }else{
+        	
+            if(loginUser == null) {
+                response.sendRedirect("/login.jsp");
+                return false;
+            }
+        	
         }
-        
-        if(loginUser == null) {
-            response.sendRedirect("/login.jsp");
-            return false;
-        }
-        
         return true;
 	}
 
