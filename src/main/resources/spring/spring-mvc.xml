@@ -37,10 +37,8 @@
     </bean>
     
 	<!-- 对静态资源的处理 -->
-	<!-- 	<mvc:default-servlet-handler/> -->
-	
-	
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+		<mvc:default-servlet-handler/>
+<!--     <mvc:resources mapping="/resources/**" location="/resources/" /> -->
     <!-- 配置视图解析器 -->
    	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
