@@ -13,9 +13,17 @@
     <import resource="classpath*:META-INF/cxf/cxf-extension-soap.xml" />  
     <import resource="classpath*:META-INF/cxf/cxf-servlet.xml" />  
   
-    <!--暴露webService接口-->  
-    <bean id="hello" class="com.buy.tsg.service.impl.SendServiceImpl"/>  
-    <jaxws:endpoint id="helloWorld" implementor="#hello" address="/helloWorldWebservice" /> 
+  	<jaxws:endpoint implementor="com.buy.tsg.service.impl.WebService1Impl" address="/address/webservice1" />
+  	<jaxws:endpoint implementor="com.buy.tsg.service.impl.WebService2Impl" address="/address/webservice2" />
+  	<jaxws:endpoint implementor="com.buy.tsg.service.impl.WebService3Impl" address="/address/webservice3" />
+  
+  
+  	
+     <!-- 配置方式1   注意：serviceClass为接口类 -->
+<!--     <jaxws:server serviceClass="com.buy.tsg.service.SendService" address="/helloWorldWebservice"/> -->
+    
+    <!-- 配置方式2    注意：implementor为接口的具体实现类 -->
+<!--     <jaxws:endpoint implementor="com.buy.tsg.service.impl.SendServiceImpl" address="/helloWorldWebservice" /> -->
     
     <!-- webservice发布地址http://localhost:8080/webservice/helloWorldWebservice?wsdl --> 
 </beans>  

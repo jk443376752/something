@@ -5,7 +5,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>主页面</title>
+		<title>后台主页面</title>
 		<!-- basic styles -->
 		<link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="/resources/assets/css/font-awesome.min.css" />
@@ -34,7 +34,7 @@
 					<a href="#" class="navbar-brand">
 						<small>
 							<i class="icon-leaf"></i>
-							somthing后台管理系统
+							商城后台管理系统
 						</small>
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->
@@ -207,7 +207,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="table-header">
-										今日待完成的工作
+										患者详情
 									</div>
 				
 									<div class="table-responsive">
@@ -476,8 +476,8 @@
 //	 							$("#myPaTbody").append('<td class="center"><label><input type="checkbox" class="ace" /><span class="lbl"></span></label></td> ');
 							 $("#myPaTbody").append('<tr id=myTr'+index+'>'+'</tr>');
 							 $('#myTr'+index).append(
-									 '<td>'+pa_id+'</td>'
-									 +'<td>'+pa_name+'</td>'
+									 '<td>'+pa_name+'</td>'
+									 +'<td>'+pa_receivable+'</td>'
 									 +'<td>'+pa_receivable+'</td>'
 									 +'<td>'+pa_net_receipts+'</td>'
 									 +'<td>'+pa_phone+'</td>'
