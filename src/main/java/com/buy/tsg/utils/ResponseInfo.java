@@ -56,9 +56,6 @@ public class ResponseInfo {
 		this.pageList = pageList;
 	}
 
-
-
-
 	public Integer getIs_abnormal() {
 		return is_abnormal;
 	}

@@ -1,6 +1,8 @@
 package com.buy.tsg.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.service.UserLoginService;
+import com.buy.tsg.utils.HttpSessionUtil;
 import com.buy.tsg.utils.ResponseInfo;
 @Controller
 public class LoginController {
@@ -30,8 +33,8 @@ public class LoginController {
 		return "redirect:/login.jsp";
 	}
 	
-	@RequestMapping("/login2")
 	@ResponseBody
+	@RequestMapping("/login2")
 	public ModelMap login2(){
 		ModelAndView mv = new ModelAndView();
 		
@@ -41,12 +44,27 @@ public class LoginController {
 		mp.put("mapName3", "mapValue3");
 //		设置跳转视图:setViewName(String viewName) 和 setView(View view)。前者是使用viewname，后者是使用预先构造好的View对象
 //		mv.setViewName("redirect:/login2.jsp");
-		//将map对象添加到ModelAndView里面 .
+		
+//		将map对象添加到ModelAndView里面 .
 		mv.addAllObjects(mp);
-//		System.out.println("------"+mv.getModelMap());
+		System.out.println("------"+mv.getModelMap());
 		return mv.getModelMap();
 	}
 	
+	@RequestMapping("/login3")
+	public String login3(){
+		Map test = new HashMap<>();
+		test.put("name1",1);
+		test.put("name2",2);
+		test.put("name3",3);
+		test.put("name4",4);
+		test.put("name5",5);
+		HttpSessionUtil.getSession().setAttribute("test", test);
+		System.out.println(HttpSessionUtil.getSession().getAttribute("test"));
+		System.out.println(HttpSessionUtil.getSession().getAttribute("test"));
+
+		return "redirect:/login3.jsp";
+	}
 	
 	@RequestMapping("/main")
 	public String main(){

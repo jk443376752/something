@@ -5,17 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>login2</title>
+<title>login3</title>
 <script type="text/javascript" src="/resources/jquery/jquery.js"></script>
-<script>
-
-	$(function(){
-		var test = ${test.size()};
-		//alert(test)
-	})
-
-</script>
 <body>
-	${test.size()}
+55555
 </body>
 </html>

@@ -33,11 +33,8 @@ public class LoginInterceptor implements  HandlerInterceptor{
 		
 		if(loginUser!=null){
 			HttpSessionUtil.getRequest().setAttribute("username", loginUser.getUsername());
+			return true; 
 		}
-		
-		if(loginUser != null){ 
-		   return true; 
-		} 
 		
 		request.getRequestDispatcher("/login.jsp").forward(request, response); 
 	    

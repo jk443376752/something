@@ -25,7 +25,8 @@ public class PatientServiceImpl implements PatientService{
 		 //查询一共有多少条数据
 		 Integer totalCount = patientMapper.totalCount(patientQueryParameter);
 		 
-		 PageList<Map<String, Object>> pageList = new PageList<Map<String, Object>>(patientQueryParameter.getCurrentPage(), patientQueryParameter.getPageSize(),totalCount);
+		 //把分页信息封装PageList这个对象里面
+		 PageList<Map<String, Object>> pageList = new PageList<>(patientQueryParameter.getCurrentPage(), patientQueryParameter.getPageSize(),totalCount);
 
 		 pageList.setData(mapList);
 		 
@@ -34,7 +35,6 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public void deleteTableList(String paId) {
-		
 		Patient patient = patientMapper.selectByPrimaryKey(Integer.valueOf(paId));
 		if(patient!=null){
 			patientMapper.deleteTableList(Integer.valueOf(paId));
