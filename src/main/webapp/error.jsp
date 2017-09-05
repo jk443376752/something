@@ -8,6 +8,6 @@
 <title>login3</title>
 <script type="text/javascript" src="/resources/jquery/jquery.js"></script>
 <body>
-55555
+sorry!你木有权限!!
 </body>
 </html>

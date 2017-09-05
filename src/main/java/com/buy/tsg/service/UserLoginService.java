@@ -10,6 +10,8 @@ public interface UserLoginService {
 
 	ResponseInfo checkLogin(LoginUser user );
 	
+	LoginUser selectLoginUserByUserName(String username);
+	
 	void LoginOut();
 	
 	void updateLoginUser();

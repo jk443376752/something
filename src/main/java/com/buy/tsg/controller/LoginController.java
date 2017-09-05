@@ -1,10 +1,9 @@
 package com.buy.tsg.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,39 @@ public class LoginController {
 	@Autowired
 	private UserLoginService userLoginService; 
 	
-	@RequestMapping("/login")
-	public String login(){
+//	@RequestMapping("/login")
+//	public String login(){
+//		return "redirect:/login.jsp";
+//	}
+	
+	@RequestMapping(value="/login/check",method={RequestMethod.POST})
+	@ResponseBody
+	public ResponseInfo checkLogin(@RequestParam("username") String username , @RequestParam("password") String password){
+		
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUsername(username);
+		loginUser.setPassword(password);
+		ResponseInfo responseInfo = userLoginService.checkLogin(loginUser);
+		return responseInfo;
+	}
+	
+	@RequestMapping("/main")
+	public String main(){
+		return "main";
+	}
+
+	
+	@RequestMapping("/loginOut")
+	public String loginOut(){
+		userLoginService.LoginOut();
 		return "redirect:/login.jsp";
+	}
+	
+	
+	@RequestMapping("/getLoginUser")
+	@ResponseBody
+	public LoginUser getLoginUser(Integer id){
+		return userLoginService.getUser(id);
 	}
 	
 	@ResponseBody
@@ -66,35 +95,4 @@ public class LoginController {
 		return "redirect:/login3.jsp";
 	}
 	
-	@RequestMapping("/main")
-	public String main(){
-		return "main";
-	}
-	
-	@RequestMapping("/getLoginUser")
-	@ResponseBody
-	public LoginUser getLoginUser(Integer id){
-		
-		return userLoginService.getUser(id);
-		
-		
-	}
-	
-	@RequestMapping(value="/login/check",method={RequestMethod.POST})
-	@ResponseBody
-	public ResponseInfo checkLogin(@RequestParam("username") String username , @RequestParam("password") String password){
-		
-		LoginUser loginUser = new LoginUser();
-		loginUser.setUsername(username);
-		loginUser.setPassword(password);
-		ResponseInfo responseInfo = userLoginService.checkLogin(loginUser);
-		return responseInfo;
-	}
-	
-	@RequestMapping("/loginOut")
-	public String loginOut(){
-		userLoginService.LoginOut();
-		return "redirect:/login.jsp";
-	}
-
 }

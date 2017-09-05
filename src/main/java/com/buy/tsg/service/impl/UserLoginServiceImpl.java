@@ -2,8 +2,11 @@ package com.buy.tsg.service.impl;
 
 import java.util.Date;
 
+import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -38,29 +41,27 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 		LoginUser loginUser = loginUserMapper.checkUser(user);
 		if(loginUser!=null){
 			LoginUser loginUserNew = new LoginUser();
-			HttpServletRequest request = HttpSessionUtil.getRequest();
-	        String ip = request.getHeader("x-forwarded-for");      
-            if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
-                ip = request.getHeader("Proxy-Client-IP");      
-            }     
-
-            if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
-                ip = request.getHeader("WL-Proxy-Client-IP");     
-            }     
-
-            if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
-                ip = request.getRemoteAddr();      
-            }   
-//			System.out.println("ip-----"+ip);
-			loginUserNew.setIp(ip);
-			loginUserNew.setLogintime(null);
+			//更改ip
+//			loginUserNew.setIp(ip);
+			//更改登录时间
+//			loginUserNew.setLogintime(null);
+			
 			loginUserNew.setId(user.getId());
 			loginUserMapper.updateLoginUser(loginUserNew);
+			
+			//登录成功后把用户存放到redis里面去
 			redisServiceImpl.set("loginUser", loginUser);
+
+	        org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();  
+	        // 登录后存放进shiro token  
+	        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+	        subject.login(token);
+//	        System.out.println("当前赋值的角色为"+subject.hasRole("root"));
 			responseInfo.setRemark("登录成功");
 			responseInfo.setIs_abnormal(1);
 			return responseInfo;
 		}
+
 		responseInfo.setRemark("用户名或密码不正确");
 		responseInfo.setIs_abnormal(0);
 		return responseInfo;
@@ -85,6 +86,13 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 		
 //		int i = 1/0;
 	}
+
+	@Override
+	public LoginUser selectLoginUserByUserName(String username) {
+		// TODO Auto-generated method stub
+		return loginUserMapper.selectLoginUserByUserName(username);
+	}
+
 
 
 }

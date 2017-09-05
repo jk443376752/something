@@ -51,9 +51,9 @@
 	
 	
 <!-- 定义拦截器 -->
-    <mvc:interceptors>
-    	<bean class="com.buy.tsg.intercepter.LoginInterceptor"></bean>
-    </mvc:interceptors>
+<!--     <mvc:interceptors> -->
+<!--     	<bean class="com.buy.tsg.intercepter.LoginInterceptor"></bean> -->
+<!--     </mvc:interceptors> -->
     
 <!-- 定义拦截器说明 -->
 <!-- <mvc:interceptors> -->

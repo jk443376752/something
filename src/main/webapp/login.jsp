@@ -22,9 +22,6 @@
 			 		var username = $("#username").val();
 					var password = $("#password").val();
 					if(username.length==0 || password.length==0){
-/* 						$("#myContent").empty();
-		    	    	$("#myContent").append("<h4>用户名或密码不能为空<h4>");
-						$('#myModal').modal('show'); */
 						layer.alert('用户名或密码不能为空!',{
 							title:'温馨提示',
 							//大小
@@ -52,8 +49,6 @@
 		    	      if(data.is_abnormal==0){
 		    	    	  $("#myContent").empty();
 		    	    	  var remark = data.remark;
-/* 		    	    	  $("#myContent").append(remark);
-		    	    	  $('#myModal').modal('show'); */
 						  layer.alert(remark,{
 							 title:'温馨提示',
 							 //大小
@@ -65,6 +60,7 @@
 						  var password = $("#password").empty();
 		      	      	return;
 		      	      }
+		    	      return;
 		    	    });
 				})
 			})

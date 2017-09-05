@@ -18,7 +18,7 @@ public class TestShiroShenFenYanZheng {
 		
 		 //1、获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager  
 	    Factory<org.apache.shiro.mgt.SecurityManager> factory =  
-	            new IniSecurityManagerFactory("classpath:shiro.ini"); 
+	            new IniSecurityManagerFactory("classpath:shiro/shiro.ini"); 
 	    
 	    //2、得到SecurityManager实例  
 	    org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance(); 
@@ -44,6 +44,6 @@ public class TestShiroShenFenYanZheng {
 	  
 	    //6、退出  
 	    subject.logout();  
-	}    
-
+	}   
+	
 }
