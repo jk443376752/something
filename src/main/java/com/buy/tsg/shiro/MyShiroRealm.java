@@ -1,6 +1,8 @@
 package com.buy.tsg.shiro;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,13 +16,20 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.buy.tsg.entity.Auth;
 import com.buy.tsg.entity.LoginUser;
+import com.buy.tsg.service.AuthService;
+import com.buy.tsg.service.RoleService;
 import com.buy.tsg.service.UserLoginService;
 
 public class MyShiroRealm extends AuthorizingRealm {
 
 	@Autowired
 	private UserLoginService userLoginService;
+	@Autowired
+	private AuthService authService;
+	@Autowired
+	private RoleService roleService;
 	
 	/**
 	 * 获取权限信息
@@ -29,10 +38,47 @@ public class MyShiroRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
 		
 		String currentUsername = (String)super.getAvailablePrincipal(pc); 
+		
+		//根据用户名查出这个用户具有角色和权限 ,然后添加角色和权限 .
+		
+		//查询具有的角色
+		List<String> roleNames = roleService.selectRoleByUsername(currentUsername);
+		
+		List<String> authNames = authService.selectAuthByUsername(currentUsername);
+		
 		SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo(); 
-		simpleAuthorInfo.addRole("root");  
-        //添加权限  
-        simpleAuthorInfo.addStringPermission("root:find");  
+		
+		System.out.println("当前用户为----"+currentUsername);
+		System.out.println("为其添加的角色组为----"+roleNames);
+		System.out.println("为其添加的权限组为----"+authNames);
+		
+		//如果角色和权限都为空 ,直接返回一个空对象 . 
+		if(roleNames==null&&authNames==null){
+	        return null;  
+		}
+		if(roleNames!=null){
+			for (String role : roleNames) {
+				//添加角色
+				simpleAuthorInfo.addRole(role); 
+			}
+		}
+		//拿到所有角色里面的所有权限
+		List<String> authRolesAuth= authService.selectAuthByRoleNames(roleNames);
+		
+		//先把角色里面的权限去重添加进去.
+		for (String auth : authRolesAuth) {
+			simpleAuthorInfo.addStringPermission(auth);
+		}
+		
+		System.out.println("所有角色里面的去重权限为:------"+authRolesAuth);
+		
+		for (String auth : authNames) {
+	        //添加用户自带的权限  ,判断 ,如果authRolesAuth里面有的就不添加 .
+			if(!authRolesAuth.contains(auth)&&auth!=null){
+				simpleAuthorInfo.addStringPermission(auth);
+			}
+		}
+		//因为角色也包含权限 ,查询出来 , 如果当前用户已经具有该权限 , 就不用添加了 , 如果没有就添加 . 
         return simpleAuthorInfo;  
 	}
 

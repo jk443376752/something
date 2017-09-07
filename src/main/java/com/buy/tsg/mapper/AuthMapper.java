@@ -1,5 +1,7 @@
 package com.buy.tsg.mapper;
 
+import java.util.List;
+
 import com.buy.tsg.entity.Auth;
 
 public interface AuthMapper {
@@ -14,4 +16,14 @@ public interface AuthMapper {
     int updateByPrimaryKeySelective(Auth record);
 
     int updateByPrimaryKey(Auth record);
+    
+    /**
+     * 以上为自动生成
+     * @param username
+     * @return List<Auth>
+     */
+    List<String> selectAuthByUsername(String username);
+    
+	List<String> selectAuthByRoleNames(List<String> roleNames);
+
 }

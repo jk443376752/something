@@ -14,5 +14,5 @@ public class SingleTonEH {
 		
 		return singleTon;
 	}
-
+	
 }

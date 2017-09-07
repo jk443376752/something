@@ -10,6 +10,28 @@
   <sql id="Base_Column_List" >
     id, auth_name, url, describe
   </sql>
+  
+  <select id="selectAuthByUsername" parameterType="java.lang.String" resultType="string">
+		select auth.auth_name from t_loginuser lg LEFT JOIN user_auth ua ON
+
+		ua.user_id = lg.id LEFT JOIN t_auth auth on ua.auth_id = auth.id
+
+		where lg.username =#{username}
+  </select>
+  
+  <select id="selectAuthByRoleNames" resultType="string">
+  	
+  		select distinct a.auth_name from t_role r LEFT JOIN role_auth ra on r.id = ra.role_id 
+
+		LEFT JOIN t_auth a on ra.auth_id=a.id where r.role_name in 
+
+		<foreach collection="list" item="rolename" index="index"
+		            open="(" close=")" separator=",">
+		            #{rolename}
+		</foreach>
+  	
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

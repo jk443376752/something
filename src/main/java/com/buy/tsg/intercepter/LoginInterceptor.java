@@ -12,6 +12,12 @@ import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.service.common.RedisServiceImpl;
 import com.buy.tsg.utils.HttpSessionUtil;
 
+/**
+ * 
+ * @author Administrator
+ * 已经用shiro做登录拦截 ,不用springmvc拦截器的方式了
+ *
+ */
 public class LoginInterceptor implements  HandlerInterceptor{
 	@Autowired
 	private RedisServiceImpl redisServiceImpl;
