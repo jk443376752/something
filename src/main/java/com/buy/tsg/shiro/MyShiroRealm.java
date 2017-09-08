@@ -21,6 +21,7 @@ import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.service.AuthService;
 import com.buy.tsg.service.RoleService;
 import com.buy.tsg.service.UserLoginService;
+import com.buy.tsg.utils.HttpSessionUtil;
 
 public class MyShiroRealm extends AuthorizingRealm {
 
@@ -36,22 +37,19 @@ public class MyShiroRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
-		
+		//获取当前用户的名字
 		String currentUsername = (String)super.getAvailablePrincipal(pc); 
-		
-		//根据用户名查出这个用户具有角色和权限 ,然后添加角色和权限 .
-		
-		//查询具有的角色
+		//根据用户名查询具有的角色
 		List<String> roleNames = roleService.selectRoleByUsername(currentUsername);
 		
+		//根据用户名查询具有的权限
 		List<String> authNames = authService.selectAuthByUsername(currentUsername);
-		
-		SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo(); 
 		
 		System.out.println("当前用户为----"+currentUsername);
 		System.out.println("为其添加的角色组为----"+roleNames);
 		System.out.println("为其添加的权限组为----"+authNames);
 		
+		SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo(); 
 		//如果角色和权限都为空 ,直接返回一个空对象 . 
 		if(roleNames==null&&authNames==null){
 	        return null;  
@@ -62,10 +60,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 				simpleAuthorInfo.addRole(role); 
 			}
 		}
-		//拿到所有角色里面的所有权限
+		//拿到所有角色里面去重的所有权限
 		List<String> authRolesAuth= authService.selectAuthByRoleNames(roleNames);
 		
-		//先把角色里面的权限去重添加进去.
+		//先把角色里面的权限加进去.
 		for (String auth : authRolesAuth) {
 			simpleAuthorInfo.addStringPermission(auth);
 		}
@@ -97,7 +95,6 @@ public class MyShiroRealm extends AuthorizingRealm {
                 return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());  
             }  
         }  
-        
         return null;  
 	}
 

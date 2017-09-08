@@ -23,11 +23,13 @@
         <property name="filterChainDefinitions">  
             <value>  
             	/loginOut=logout 
+            	/loginmanager=anon
+            	/loginmanager.jsp=anon
                 /login/check=anon <!-- anon 表示需要匿名游客都可以访问 --> 
                 /resources/**=anon<!-- 不拦截任何静态请求 -->
-                /main = roles[root]<!-- 表示需要角色为root的用户才能访问 -->
-                /main = perms["add,delete,update,see,lock"]<!-- 表示权限为root:find的才能访问 -->
-                /** = user<!-- authc 表示需要认证才访问的页面 -->
+                /main/manager = roles["root"]<!-- 表示需要角色为root的用户才能访问 -->
+                /main/manager = roles["manager"]
+                /** = authc<!-- authc 表示需要认证才访问的页面 -->
             </value>  
         </property>  
     </bean>  

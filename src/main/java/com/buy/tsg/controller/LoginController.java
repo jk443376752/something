@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ public class LoginController {
 	@Autowired
 	private UserLoginService userLoginService; 
 	
-//	@RequestMapping("/login")
-//	public String login(){
-//		return "redirect:/login.jsp";
-//	}
+	//后台管理页面登录界面 ,配合shiro默认不拦截次请求
+	@RequestMapping("/loginmanager")
+	public String login(){
+		//shiro默认不拦截次请求 
+		return "redirect:/loginmanager.jsp";
+	}
 	
 	@RequestMapping(value="/login/check",method={RequestMethod.POST})
 	@ResponseBody
@@ -43,15 +46,31 @@ public class LoginController {
 		return responseInfo;
 	}
 	
+	@RequestMapping("/main/manager")
+	public String mainmanager(){
+		return "main/manager";
+	}
+	
 	@RequestMapping("/main")
 	public String main(){
-		return "main";
+		return "main/main";
 	}
 
+	
+	@RequestMapping("/loginOutManager")
+	public String loginOutManager(){
+
+		userLoginService.LoginOut();
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return "redirect:/loginmanager.jsp";
+	}
 	
 	@RequestMapping("/loginOut")
 	public String loginOut(){
 		userLoginService.LoginOut();
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
 		return "redirect:/login.jsp";
 	}
 	
@@ -62,37 +81,22 @@ public class LoginController {
 		return userLoginService.getUser(id);
 	}
 	
-	@ResponseBody
-	@RequestMapping("/login2")
-	public ModelMap login2(){
-		ModelAndView mv = new ModelAndView();
-		
-		ModelMap mp = new ModelMap();
-		mp.put("mapName1", "mapValue1");
-		mp.put("mapName2", "mapValue2");
-		mp.put("mapName3", "mapValue3");
-//		设置跳转视图:setViewName(String viewName) 和 setView(View view)。前者是使用viewname，后者是使用预先构造好的View对象
-//		mv.setViewName("redirect:/login2.jsp");
-		
-//		将map对象添加到ModelAndView里面 .
-		mv.addAllObjects(mp);
-		System.out.println("------"+mv.getModelMap());
-		return mv.getModelMap();
-	}
-	
-	@RequestMapping("/login3")
-	public String login3(){
-		Map test = new HashMap<>();
-		test.put("name1",1);
-		test.put("name2",2);
-		test.put("name3",3);
-		test.put("name4",4);
-		test.put("name5",5);
-		HttpSessionUtil.getSession().setAttribute("test", test);
-		System.out.println(HttpSessionUtil.getSession().getAttribute("test"));
-		System.out.println(HttpSessionUtil.getSession().getAttribute("test"));
-
-		return "redirect:/login3.jsp";
-	}
+//	@ResponseBody
+//	@RequestMapping("/login2")
+//	public ModelMap login2(){
+//		ModelAndView mv = new ModelAndView();
+//		
+//		ModelMap mp = new ModelMap();
+//		mp.put("mapName1", "mapValue1");
+//		mp.put("mapName2", "mapValue2");
+//		mp.put("mapName3", "mapValue3");
+////		设置跳转视图:setViewName(String viewName) 和 setView(View view)。前者是使用viewname，后者是使用预先构造好的View对象
+////		mv.setViewName("redirect:/login2.jsp");
+//		
+////		将map对象添加到ModelAndView里面 .
+//		mv.addAllObjects(mp);
+//		System.out.println("------"+mv.getModelMap());
+//		return mv.getModelMap();
+//	}
 	
 }

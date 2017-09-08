@@ -50,13 +50,14 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 			loginUserMapper.updateLoginUser(loginUserNew);
 			
 			//登录成功后把用户存放到redis里面去
-			redisServiceImpl.set("loginUser", loginUser);
+//			redisServiceImpl.set("loginUser", loginUser);
+			//登录成功把用户放到session里面取
+			HttpSessionUtil.getSession().setAttribute("username", loginUser.getUsername());
 
 	        org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();  
-	        // 登录后存放进shiro token  
 	        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 	        subject.login(token);
-//	        System.out.println("当前赋值的角色为"+subject.hasRole("root"));
+	        
 			responseInfo.setRemark("登录成功");
 			responseInfo.setIs_abnormal(1);
 			return responseInfo;
@@ -83,13 +84,11 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 		loginUser.setCreatetime(new Date());
 		loginUser.setId(8);
 		loginUserMapper.updateLoginUser(loginUser);
-		
 //		int i = 1/0;
 	}
 
 	@Override
 	public LoginUser selectLoginUserByUserName(String username) {
-		// TODO Auto-generated method stub
 		return loginUserMapper.selectLoginUserByUserName(username);
 	}
 

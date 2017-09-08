@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>普通登录页面</title>
+		<title>管理员登录页面</title>
 		<!-- basic styles -->
 		<link href="/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="/resources/assets/css/font-awesome.min.css" />
@@ -43,7 +43,7 @@
 		    	    function(data,status){
 		    	    	
 		    	      if(data.is_abnormal==1){
-		    	    	window.location.href="/main"; 
+		    	    	window.location.href="/main/manager"; 
 		      	      	return;
 		    	      }
 		    	      if(data.is_abnormal==0){
@@ -77,7 +77,7 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="red">普通登录页面</span>
+									<span class="red">管理员登录界面</span>
 								</h1>
 							</div>
 

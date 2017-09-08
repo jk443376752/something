@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>login3</title>
+<title>error</title>
 <script type="text/javascript" src="/resources/jquery/jquery.js"></script>
 <body>
-sorry!你木有权限!!
+哈哈!你木有权限!!
 </body>
 </html>
