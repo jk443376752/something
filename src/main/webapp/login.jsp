@@ -43,7 +43,7 @@
 		    	    function(data,status){
 		    	    	
 		    	      if(data.is_abnormal==1){
-		    	    	window.location.href="/main"; 
+		    	    	window.location.href="/main"
 		      	      	return;
 		    	      }
 		    	      if(data.is_abnormal==0){
@@ -139,7 +139,7 @@
 											</div>
 
 											<div>
-												<a href="/patient/register" class="user-signup-link">
+												<a href="/register/register" class="user-signup-link">
 													注册
 													<i class="icon-arrow-right"></i>
 												</a>

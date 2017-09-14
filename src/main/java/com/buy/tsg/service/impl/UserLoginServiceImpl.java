@@ -51,6 +51,7 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 			
 			//登录成功后把用户存放到redis里面去
 //			redisServiceImpl.set("loginUser", loginUser);
+			
 			//登录成功把用户放到session里面取
 			HttpSessionUtil.getSession().setAttribute("username", loginUser.getUsername());
 
@@ -71,8 +72,9 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 
 	@Override
 	public void LoginOut() {
-		redisServiceImpl.del("loginUser");
-		HttpSessionUtil.getSession().removeAttribute("username");
+		//redis现在没用
+//		redisServiceImpl.del("loginUser");
+		HttpSessionUtil.getSession().invalidate();
 	}
 	
 	

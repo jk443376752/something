@@ -4,8 +4,9 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans   
                         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"  
     default-lazy-init="true">  
+    
         
-   	<!-- 配置 Shiro 的 SecurityManager Bean. -->         
+   	<!-- 配置 Shiro的安全管理器 -->         
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
         <property name="realm" ref="myShiroRealm" />  
         <property name="cacheManager" ref="cacheManager" />  
@@ -13,7 +14,7 @@
     
    <!-- 自定义授权和认证规则 -->
     <bean id="myShiroRealm" class="com.buy.tsg.shiro.MyShiroRealm"/>  
-        
+    
     <!-- Shiro 的Web过滤器 -->  
    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
         <property name="securityManager" ref="securityManager" />  
@@ -22,13 +23,14 @@
            
         <property name="filterChainDefinitions">  
             <value>  
+                /resources/**=anon<!-- 不拦截任何静态请求 -->
             	/loginOut=logout 
             	/loginmanager=anon
             	/loginmanager.jsp=anon
+            	/register/register=anon
+            	/register/checkRegister=anon
                 /login/check=anon <!-- anon 表示需要匿名游客都可以访问 --> 
-                /resources/**=anon<!-- 不拦截任何静态请求 -->
-                /main/manager = roles["root"]<!-- 表示需要角色为root的用户才能访问 -->
-                /main/manager = roles["manager"]
+                /main/manager = roles["manager"]<!-- 表示需要角色为root的用户才能访问 -->
                 /** = authc<!-- authc 表示需要认证才访问的页面 -->
             </value>  
         </property>  
@@ -41,7 +43,6 @@
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"  
         depends-on="lifecycleBeanPostProcessor">  
     </bean>
-    
     
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 --> 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  

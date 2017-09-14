@@ -139,7 +139,7 @@
 											</div>
 
 											<div>
-												<a href="/patient/register" class="user-signup-link">
+												<a href="/register/register" class="user-signup-link">
 													注册
 													<i class="icon-arrow-right"></i>
 												</a>

@@ -9,16 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.buy.tsg.entity.LoginUser;
+import com.buy.tsg.query.AuthApplyMessageQueryParameter;
+import com.buy.tsg.service.AuthApplyMessageService;
 import com.buy.tsg.service.UserLoginService;
-import com.buy.tsg.utils.HttpSessionUtil;
 import com.buy.tsg.utils.ResponseInfo;
 @Controller
 public class LoginController {
@@ -27,6 +26,9 @@ public class LoginController {
 	 
 	@Autowired
 	private UserLoginService userLoginService; 
+	
+	@Autowired
+	private AuthApplyMessageService authApplyMessageService;
 	
 	//后台管理页面登录界面 ,配合shiro默认不拦截次请求
 	@RequestMapping("/loginmanager")
@@ -48,11 +50,16 @@ public class LoginController {
 	
 	@RequestMapping("/main/manager")
 	public String mainmanager(){
+		
 		return "main/manager";
 	}
 	
 	@RequestMapping("/main")
 	public String main(){
+		//去访问主页的时候默认先把正在申请的数据的第一页放到session里面去
+		//new的时候默认就有第一页
+		AuthApplyMessageQueryParameter parameter = new AuthApplyMessageQueryParameter();
+		authApplyMessageService.getAll(parameter);
 		return "main/main";
 	}
 
@@ -60,9 +67,9 @@ public class LoginController {
 	@RequestMapping("/loginOutManager")
 	public String loginOutManager(){
 
-		userLoginService.LoginOut();
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
+		userLoginService.LoginOut();
 		return "redirect:/loginmanager.jsp";
 	}
 	

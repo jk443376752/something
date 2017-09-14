@@ -34,12 +34,12 @@ public class ResponseInfo {
 	private PageList pageList;
 
 
-	private Map<String, Object> dataMap = new HashMap<String, Object>();
+	//private Map<String, Object> dataMap = new HashMap<String, Object>();
 	
 	/**
 	 *  mybatis ,返回Map , 传入List<Map<String ,Object>>类型的数据
 	 */
-	private List<Map<String, Object>> dataMapList  = new ArrayList<Map<String, Object>>() ;
+	//private List<Map<String, Object>> dataMapList  = new ArrayList<Map<String, Object>>() ;
 	
 	
 	public ResponseInfo() {
@@ -72,34 +72,20 @@ public class ResponseInfo {
 		this.remark = remark;
 	}
 
-	public Map<String, Object> getDataMap() {
-		return dataMap;
-	}
+//	public Map<String, Object> getDataMap() {
+//		return dataMap;
+//	}
+//
+//	public void setDataMap(Map<String, Object> dataMap) {
+//		this.dataMap = dataMap;
+//	}
+//
+//	public void setDataMapList(List<Map<String, Object>> dataMapList) {
+//		this.dataMapList = dataMapList;
+//	}
+//
+//	public List<Map<String, Object>> getDataMapList() {
+//		return dataMapList;
+//	}
 
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
-	}
-
-	public void setDataMapList(List<Map<String, Object>> dataMapList) {
-		this.dataMapList = dataMapList;
-	}
-
-	public List<Map<String, Object>> getDataMapList() {
-		return dataMapList;
-	}
-
-	public String toJsonString(ResponseInfo responseInfo) {
-	  JSONObject jsonObject = new JSONObject();
-    try {
-      jsonObject.put("is_abnormal", responseInfo.getIs_abnormal());
-      jsonObject.put("remark", responseInfo.getRemark());
-      jsonObject.put("dataMapList", responseInfo.getDataMapList());
-      jsonObject.put("dataMap", responseInfo.getDataMap());
-      jsonObject.put("pageList", responseInfo.getPageList());
-    } catch (JSONException e) {
-      jsonObject = null;
-      e.printStackTrace();
-    }
-		return jsonObject.toString();
-	}
 }

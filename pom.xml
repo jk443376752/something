@@ -46,8 +46,24 @@
 	      <artifactId>shiro-quartz</artifactId>  
 	      <version>1.2.4</version>  
 	  </dependency>
-		
-        
+	  <dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-cas</artifactId>
+	    <version>1.2.4</version>
+	</dependency>
+	  
+	<!-- 使用jstl标签需要导的包 -->
+	  <dependency>
+	　　　　<groupId>javax.servlet</groupId>
+	　　　　<artifactId>jstl</artifactId>
+	　　　　<version>1.2</version>
+	　　</dependency>
+	 
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     <!-- doubbo配置所需要的包 -->
     	<dependency>  
             <groupId>com.alibaba</groupId>  

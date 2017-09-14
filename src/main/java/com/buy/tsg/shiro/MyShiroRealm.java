@@ -86,6 +86,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken at) throws AuthenticationException {
 		 UsernamePasswordToken token = (UsernamePasswordToken) at; 
+		 
+		 
+		 
         // 通过表单接收的用户名  
         String username = token.getUsername(); 
         

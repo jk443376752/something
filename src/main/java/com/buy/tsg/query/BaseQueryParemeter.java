@@ -5,7 +5,7 @@ package com.buy.tsg.query;
  * 如果有其他查询条件 , 可以在子类继承此类
  */
 
-public class BaseQueryParemeter {
+public  class BaseQueryParemeter {
 	//每页查询多少条数据(默认每页查询10条数据)
 	private Integer pageSize = 10;
 	//当前(要查询的)是第几页 ,默认查询第一页

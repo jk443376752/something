@@ -20,7 +20,7 @@
      <sql id="wheresql">
         <where>
         </where>
-    </sql>
+     </sql>
     <!-- 分页查询  -->
     <select id="queryList"  parameterType="com.buy.tsg.query.PatientQueryParameter" resultType="map">
         select  pa_id, pa_name, pa_status, pa_case_history, pa_case_history_num, pa_clinic_time, 

@@ -39,4 +39,9 @@ public class RegisterController {
 		return responseInfoCheck;
 	}
 	
+	@RequestMapping("/register")
+	public String register(){
+		return "register";
+	}
+	
 }
