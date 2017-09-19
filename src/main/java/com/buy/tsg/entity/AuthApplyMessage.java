@@ -7,21 +7,18 @@ public class AuthApplyMessage {
 
     private String applyName;
 
-    private String applySex;
-
     private String applyTelphone;
-
-    private String applyDepartment;
 
     private String submitName;
 
     private String submitTelphone;
 
-    private String submitDepartment;
-
     private Date submitTime;
 
+    //0表示正在申请,1表示申请成功 ,2表示申请失败
     private Byte status;
+
+    private String beizhu;
 
     public Integer getId() {
         return id;
@@ -39,28 +36,12 @@ public class AuthApplyMessage {
         this.applyName = applyName == null ? null : applyName.trim();
     }
 
-    public String getApplySex() {
-        return applySex;
-    }
-
-    public void setApplySex(String applySex) {
-        this.applySex = applySex == null ? null : applySex.trim();
-    }
-
     public String getApplyTelphone() {
         return applyTelphone;
     }
 
     public void setApplyTelphone(String applyTelphone) {
         this.applyTelphone = applyTelphone == null ? null : applyTelphone.trim();
-    }
-
-    public String getApplyDepartment() {
-        return applyDepartment;
-    }
-
-    public void setApplyDepartment(String applyDepartment) {
-        this.applyDepartment = applyDepartment == null ? null : applyDepartment.trim();
     }
 
     public String getSubmitName() {
@@ -79,14 +60,6 @@ public class AuthApplyMessage {
         this.submitTelphone = submitTelphone == null ? null : submitTelphone.trim();
     }
 
-    public String getSubmitDepartment() {
-        return submitDepartment;
-    }
-
-    public void setSubmitDepartment(String submitDepartment) {
-        this.submitDepartment = submitDepartment == null ? null : submitDepartment.trim();
-    }
-
     public Date getSubmitTime() {
         return submitTime;
     }
@@ -101,5 +74,13 @@ public class AuthApplyMessage {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getBeizhu() {
+        return beizhu;
+    }
+
+    public void setBeizhu(String beizhu) {
+        this.beizhu = beizhu == null ? null : beizhu.trim();
     }
 }

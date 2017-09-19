@@ -22,7 +22,19 @@
 		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/resources/assets/css/ace-skins.min.css" />
 		<script src="/resources/assets/js/ace-extra.min.js"></script>
+		
+		<!-- easyui -->
+		<!-- 	    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.5.3/themes/default/easyui.css"> -->
+		<!-- 	    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.5.3/themes/icon.css"> -->
+		<!-- 	    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.5.3/demo/demo.css"> -->
+		<!-- 	    <script type="text/javascript" src="/resources/jquery-easyui-1.5.3/jquery.min.js"></script> -->
+		<!-- 	    <script type="text/javascript" src="/resources/jquery-easyui-1.5.3/jquery.easyui.min.js"></script> -->
 	</head>
+	
+	<!-- 去掉竖滚动条 -->
+<!-- 	<body style="overflow:-Scroll;overflow-y:hidden" >   -->
+	<!-- 去掉横滚动条 -->
+	<body style="overflow:-Scroll;overflow-x:hidden">
 
 	<body>
 		<div class="navbar navbar-default" id="navbar">
@@ -186,7 +198,7 @@
 				</div><!-- /.main-content -->
 			</div><!-- /.main-container-inner -->
 				
-			<!-- 引入一个框架页面iframe  -->
+<!-- 		在此位置需要引入一个框架页面iframe  -->
 			<iframe src="/AuthApplyMessage/applying" id="rightIframe" frameborder="0"
 				scrolling="no" marginheight="0" marginwidth="0" name="main"
 				onload="autoHeight();">
@@ -199,13 +211,19 @@
 						iframe.Document.documentElement.scrollHeight;
 						iframe.style.width = iframe.Document.documentElement.scrollWidth;
 					} else if (iframe.contentDocument) {//ie,firefox,chrome,opera,safari
-						iframe.height = iframe.contentDocument.body.offsetHeight;
-						iframe.width = screen.width - $("#sidebar").width() - 20;
+						iframe.height = document.documentElement.clientHeight-85.5;
+						iframe.width = screen.width - $("#sidebar").width()-25;
 					}
 				} 
 				
+				window.onresize=function(){  
+				     changeFrameHeight();  
+				} 
+				
 				function goNav(url){
+					
 					$("#rightIframe").attr("src",url);
+					
 				}
 			</script>
 

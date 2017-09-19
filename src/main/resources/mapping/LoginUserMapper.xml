@@ -5,14 +5,16 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="logintime" property="logintime" jdbcType="TIMESTAMP" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, sex, age, createtime, logintime, ip
+    id, username, password, sex, age, createtime, logintime, ip, department_id, nickname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,7 +23,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="selectLoginUserByUserName" parameterType="java.lang.String" resultType="com.buy.tsg.entity.LoginUser">
+    <select id="selectLoginUserByUserName" parameterType="java.lang.String" resultType="com.buy.tsg.entity.LoginUser">
   	select * from t_loginuser where username =#{username}
   </select>
   
@@ -29,23 +31,26 @@
   	select * from t_loginuser where username=#{username} and password=#{password}
   </select>
   
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_loginuser
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.buy.tsg.entity.LoginUser" >
-    insert into t_loginuser (id, username, password, 
-      sex, age, createtime, 
-      logintime, ip)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=TINYINT}, #{age,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{logintime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR})
-  </insert>
   
-  <insert id="insertRegisterUser" parameterType="com.buy.tsg.entity.LoginUser">
+      <insert id="insertRegisterUser" parameterType="com.buy.tsg.entity.LoginUser">
   	insert into t_loginuser (username,password ,createtime) value(#{username},#{password},#{createtime})
   </insert>
   
+  <insert id="insert" parameterType="com.buy.tsg.entity.LoginUser" >
+    insert into t_loginuser (id, username, password, 
+      sex, age, createtime, 
+      logintime, ip, department_id, 
+      nickname)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{logintime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
+      #{nickname,jdbcType=VARCHAR})
+  </insert>
   <insert id="insertSelective" parameterType="com.buy.tsg.entity.LoginUser" >
     insert into t_loginuser
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -73,6 +78,12 @@
       <if test="ip != null" >
         ip,
       </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -85,7 +96,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=TINYINT},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="age != null" >
         #{age,jdbcType=VARCHAR},
@@ -99,10 +110,16 @@
       <if test="ip != null" >
         #{ip,jdbcType=VARCHAR},
       </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
-  <update id="updateLoginUser" parameterType="com.buy.tsg.entity.LoginUser">
+      <update id="updateLoginUser" parameterType="com.buy.tsg.entity.LoginUser">
   	update t_loginuser set ip = #{ip} ,logintime =#{logintime}
   </update>
   
@@ -116,7 +133,7 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        sex = #{sex,jdbcType=TINYINT},
+        sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="age != null" >
         age = #{age,jdbcType=VARCHAR},
@@ -130,6 +147,12 @@
       <if test="ip != null" >
         ip = #{ip,jdbcType=VARCHAR},
       </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -137,11 +160,13 @@
     update t_loginuser
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=TINYINT},
+      sex = #{sex,jdbcType=VARCHAR},
       age = #{age,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       logintime = #{logintime,jdbcType=TIMESTAMP},
-      ip = #{ip,jdbcType=VARCHAR}
+      ip = #{ip,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

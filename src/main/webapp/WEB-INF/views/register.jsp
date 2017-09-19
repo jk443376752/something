@@ -154,7 +154,7 @@
 		            url:"/register/checkRegister",
 		            data:registerParameter,    
 		            contentType:"application/json; charset=utf-8",    
-		            dataType: "json",    
+		            dataType: "json",
 		            success: function (data,message) {    
 		            	var reminder =data.remark;
 						layer.alert(reminder,{

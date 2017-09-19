@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.mapper.LoginUserMapper;
+import com.buy.tsg.query.AuthApplyMessageQueryParameter;
+import com.buy.tsg.service.AuthApplyMessageService;
 import com.buy.tsg.service.UserLoginService;
 import com.buy.tsg.service.common.BaseServiceImpl;
 import com.buy.tsg.service.common.RedisServiceImpl;
@@ -26,6 +28,8 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 	private LoginUserMapper loginUserMapper;
 	@Autowired
 	private RedisServiceImpl redisServiceImpl;
+	@Autowired 
+	private AuthApplyMessageService authApplyMessageService;
 	
 	@Override
 	public LoginUser getUser(Integer id) {
@@ -54,10 +58,12 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 			
 			//登录成功把用户放到session里面取
 			HttpSessionUtil.getSession().setAttribute("username", loginUser.getUsername());
-
 	        org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();  
 	        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 	        subject.login(token);
+	        //登陆成功后把数据放到session里面
+			AuthApplyMessageQueryParameter parameter = new AuthApplyMessageQueryParameter();
+			authApplyMessageService.getAll(parameter);
 	        
 			responseInfo.setRemark("登录成功");
 			responseInfo.setIs_abnormal(1);

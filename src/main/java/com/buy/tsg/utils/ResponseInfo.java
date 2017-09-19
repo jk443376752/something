@@ -34,12 +34,14 @@ public class ResponseInfo {
 	private PageList pageList;
 
 
-	//private Map<String, Object> dataMap = new HashMap<String, Object>();
+	private Map<String, Object> dataMap = new HashMap<String, Object>();
 	
 	/**
 	 *  mybatis ,返回Map , 传入List<Map<String ,Object>>类型的数据
 	 */
-	//private List<Map<String, Object>> dataMapList  = new ArrayList<Map<String, Object>>() ;
+	private List<Map<String, Object>> dataMapList  = new ArrayList<Map<String, Object>>() ;
+	
+	private Object obj ;
 	
 	
 	public ResponseInfo() {
@@ -72,20 +74,27 @@ public class ResponseInfo {
 		this.remark = remark;
 	}
 
-//	public Map<String, Object> getDataMap() {
-//		return dataMap;
-//	}
-//
-//	public void setDataMap(Map<String, Object> dataMap) {
-//		this.dataMap = dataMap;
-//	}
-//
-//	public void setDataMapList(List<Map<String, Object>> dataMapList) {
-//		this.dataMapList = dataMapList;
-//	}
-//
-//	public List<Map<String, Object>> getDataMapList() {
-//		return dataMapList;
-//	}
+	public Map<String, Object> getDataMap() {
+		return dataMap;
+	}
 
+	public void setDataMap(Map<String, Object> dataMap) {
+		this.dataMap = dataMap;
+	}
+
+	public void setDataMapList(List<Map<String, Object>> dataMapList) {
+		this.dataMapList = dataMapList;
+	}
+
+	public List<Map<String, Object>> getDataMapList() {
+		return dataMapList;
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+
+	public void setObj(Object obj) {
+		this.obj = obj;
+	}
 }

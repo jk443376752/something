@@ -4,59 +4,88 @@
   <resultMap id="BaseResultMap" type="com.buy.tsg.entity.AuthApplyMessage" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="apply_name" property="applyName" jdbcType="VARCHAR" />
-    <result column="apply_sex" property="applySex" jdbcType="VARCHAR" />
     <result column="apply_telphone" property="applyTelphone" jdbcType="VARCHAR" />
-    <result column="apply_department" property="applyDepartment" jdbcType="VARCHAR" />
     <result column="submit_name" property="submitName" jdbcType="VARCHAR" />
     <result column="submit_telphone" property="submitTelphone" jdbcType="VARCHAR" />
-    <result column="submit_department" property="submitDepartment" jdbcType="VARCHAR" />
     <result column="submit_time" property="submitTime" jdbcType="DATE" />
     <result column="status" property="status" jdbcType="TINYINT" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.buy.tsg.entity.AuthApplyMessage" extends="BaseResultMap" >
+    <result column="beizhu" property="beizhu" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    id, apply_name, apply_sex, apply_telphone, apply_department, submit_name, submit_telphone, 
-    submit_department, submit_time, status
+    id, apply_name, apply_telphone, submit_name, submit_telphone, submit_time, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    beizhu
   </sql>
   
-  
-     <!-- 如果有查询条件给查询添加条件 -->
+   <!-- 如果有查询条件给查询添加条件 -->
     <sql id="wheresql">
        <where>
-       		status = 0
+       		 and a.status = 0
+       		<if test="queryapplyname!=null and queryapplyname!=''">
+       			and a.apply_name like CONCAT('%',#{queryapplyname},'%')   
+       		</if>
+       		
+       		<if test="queryapplyphone!=null and queryapplyphone!=''">
+       			and a.apply_telphone like CONCAT('%',#{queryapplyphone},'%')   
+       		</if>
+       		
+       		 <if test="querysubmitname!=null and querysubmitname!=''">
+       			and a.submit_name like CONCAT('%',#{querysubmitname},'%')   
+       		</if>
+       		
+       		
+       		 <if test="querysubmitphone!=null and querysubmitphone!=''">
+       			and a.submit_telphone like CONCAT('%',#{querysubmitphone},'%')  
+       		</if>
+       		
+       		<if test="starttime!=null">
+       			and a.submit_time >= #{starttime} 
+       		</if>
+       		
+       		 <if test="endtime!=null">
+       			and a.submit_time &lt;= #{endtime} 
+       		</if>
        </where>
     </sql>
     
    <select id="getAuthApplyMessageAll" parameterType="com.buy.tsg.query.AuthApplyMessageQueryParameter"
  	 resultType="java.util.Map">
-  		select * from t_authapplymessage
+ 	 
+ 	 	 select a.*,t.sex applysex from t_authapplymessage a right join t_loginuser t on t.username = a.apply_name
+
   		<include refid="wheresql"/>
-  		limit #{currentPage},#{pageSize}
+  		limit #{beginIndex},#{pageSize}
    </select>
    
    <select id="getTotalCount" parameterType="com.buy.tsg.query.AuthApplyMessageQueryParameter" resultType="int">
-   		select count(*) from t_authapplymessage <include refid="wheresql"/>
+   		select count(*) from t_authapplymessage a <include refid="wheresql"/>
    </select>
-   
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from t_authapplymessage
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_authapplymessage
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
-    insert into t_authapplymessage (id, apply_name, apply_sex, 
-      apply_telphone, apply_department, submit_name, 
-      submit_telphone, submit_department, submit_time, 
-      status)
-    values (#{id,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{applySex,jdbcType=VARCHAR}, 
-      #{applyTelphone,jdbcType=VARCHAR}, #{applyDepartment,jdbcType=VARCHAR}, #{submitName,jdbcType=VARCHAR}, 
-      #{submitTelphone,jdbcType=VARCHAR}, #{submitDepartment,jdbcType=VARCHAR}, #{submitTime,jdbcType=DATE}, 
-      #{status,jdbcType=TINYINT})
+    insert into t_authapplymessage (id, apply_name, apply_telphone, 
+      submit_name, submit_telphone, submit_time, 
+      status, beizhu)
+    values (#{id,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{applyTelphone,jdbcType=VARCHAR}, 
+      #{submitName,jdbcType=VARCHAR}, #{submitTelphone,jdbcType=VARCHAR}, #{submitTime,jdbcType=DATE}, 
+      #{status,jdbcType=TINYINT}, #{beizhu,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
     insert into t_authapplymessage
@@ -67,14 +96,8 @@
       <if test="applyName != null" >
         apply_name,
       </if>
-      <if test="applySex != null" >
-        apply_sex,
-      </if>
       <if test="applyTelphone != null" >
         apply_telphone,
-      </if>
-      <if test="applyDepartment != null" >
-        apply_department,
       </if>
       <if test="submitName != null" >
         submit_name,
@@ -82,14 +105,14 @@
       <if test="submitTelphone != null" >
         submit_telphone,
       </if>
-      <if test="submitDepartment != null" >
-        submit_department,
-      </if>
       <if test="submitTime != null" >
         submit_time,
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="beizhu != null" >
+        beizhu,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -99,14 +122,8 @@
       <if test="applyName != null" >
         #{applyName,jdbcType=VARCHAR},
       </if>
-      <if test="applySex != null" >
-        #{applySex,jdbcType=VARCHAR},
-      </if>
       <if test="applyTelphone != null" >
         #{applyTelphone,jdbcType=VARCHAR},
-      </if>
-      <if test="applyDepartment != null" >
-        #{applyDepartment,jdbcType=VARCHAR},
       </if>
       <if test="submitName != null" >
         #{submitName,jdbcType=VARCHAR},
@@ -114,14 +131,14 @@
       <if test="submitTelphone != null" >
         #{submitTelphone,jdbcType=VARCHAR},
       </if>
-      <if test="submitDepartment != null" >
-        #{submitDepartment,jdbcType=VARCHAR},
-      </if>
       <if test="submitTime != null" >
         #{submitTime,jdbcType=DATE},
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="beizhu != null" >
+        #{beizhu,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -131,14 +148,8 @@
       <if test="applyName != null" >
         apply_name = #{applyName,jdbcType=VARCHAR},
       </if>
-      <if test="applySex != null" >
-        apply_sex = #{applySex,jdbcType=VARCHAR},
-      </if>
       <if test="applyTelphone != null" >
         apply_telphone = #{applyTelphone,jdbcType=VARCHAR},
-      </if>
-      <if test="applyDepartment != null" >
-        apply_department = #{applyDepartment,jdbcType=VARCHAR},
       </if>
       <if test="submitName != null" >
         submit_name = #{submitName,jdbcType=VARCHAR},
@@ -146,27 +157,35 @@
       <if test="submitTelphone != null" >
         submit_telphone = #{submitTelphone,jdbcType=VARCHAR},
       </if>
-      <if test="submitDepartment != null" >
-        submit_department = #{submitDepartment,jdbcType=VARCHAR},
-      </if>
       <if test="submitTime != null" >
         submit_time = #{submitTime,jdbcType=DATE},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
+      <if test="beizhu != null" >
+        beizhu = #{beizhu,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
+    update t_authapplymessage
+    set apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_telphone = #{applyTelphone,jdbcType=VARCHAR},
+      submit_name = #{submitName,jdbcType=VARCHAR},
+      submit_telphone = #{submitTelphone,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=DATE},
+      status = #{status,jdbcType=TINYINT},
+      beizhu = #{beizhu,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
     update t_authapplymessage
     set apply_name = #{applyName,jdbcType=VARCHAR},
-      apply_sex = #{applySex,jdbcType=VARCHAR},
       apply_telphone = #{applyTelphone,jdbcType=VARCHAR},
-      apply_department = #{applyDepartment,jdbcType=VARCHAR},
       submit_name = #{submitName,jdbcType=VARCHAR},
       submit_telphone = #{submitTelphone,jdbcType=VARCHAR},
-      submit_department = #{submitDepartment,jdbcType=VARCHAR},
       submit_time = #{submitTime,jdbcType=DATE},
       status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}

@@ -57,9 +57,6 @@ public class LoginController {
 	@RequestMapping("/main")
 	public String main(){
 		//去访问主页的时候默认先把正在申请的数据的第一页放到session里面去
-		//new的时候默认就有第一页
-		AuthApplyMessageQueryParameter parameter = new AuthApplyMessageQueryParameter();
-		authApplyMessageService.getAll(parameter);
 		return "main/main";
 	}
 

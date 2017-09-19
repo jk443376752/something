@@ -9,7 +9,7 @@ public class LoginUser {
 
     private String password;
 
-    private Byte sex;
+    private String sex;
 
     private String age;
 
@@ -18,6 +18,10 @@ public class LoginUser {
     private Date logintime;
 
     private String ip;
+
+    private Integer departmentId;
+
+    private String nickname;
 
     public Integer getId() {
         return id;
@@ -43,12 +47,12 @@ public class LoginUser {
         this.password = password == null ? null : password.trim();
     }
 
-    public Byte getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
-        this.sex = sex;
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
     }
 
     public String getAge() {
@@ -83,10 +87,19 @@ public class LoginUser {
         this.ip = ip == null ? null : ip.trim();
     }
 
-	@Override
-	public String toString() {
-		return "LoginUser [id=" + id + ", username=" + username + ", password=" + password + ", sex=" + sex + ", age="
-				+ age + ", createtime=" + createtime + ", logintime=" + logintime + ", ip=" + ip + "]";
-	}
-    
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
 }
