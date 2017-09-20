@@ -27,7 +27,7 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="red">something管理系统</span>
+									<span class="red">用户注册页面</span>
 								</h1>
 							</div>
 
@@ -61,26 +61,40 @@
 													</label>
 													
 													<label class="block clearfix">
-													<span class="block input-icon input-icon-right">
+														<span class="block input-icon input-icon-right">
 															<input type="password" name="password" id="registerrepassword" class="form-control" placeholder="请再次输入密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 													
-
-													<div class="clearfix">
-<!-- 														<label class="inline"> -->
-<!-- 															<input type="checkbox" class="ace" /> -->
-<!-- 															<span class="lbl"> 记住我</span> -->
-<!-- 														</label> -->
-
-														<button type="button" id="registerButton" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="icon-key"></i>
-															注册
-														</button>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<input type="radio"  value="男" name="sex">男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<input type="radio"  value="女" name="sex">女
+															<i class="icon-lock"></i>
+														</span>
+													</label>
+													
+													
+													<div class="toolbar clearfix">
+														<div>
+															<a href="javascript:registerGoBack()"  class="forgot-password-link">
+																<i class="icon-arrow-left"></i>
+																返回
+															</a>
+														</div>
+			
+														<div>
+															<a href="javascript:registerUser()" class="user-signup-link">
+																注册
+																<i class="icon-arrow-right"></i>
+															</a>
+														</div>
 													</div>
-
-													<div class="space-4"></div>
+													
+													
+												<div class="space-4"></div>
 												</fieldset>
 											</form>
 
@@ -123,72 +137,75 @@
 		<script src="/resources/layer/layer.js"></script>
 		<script>
 			
-			$("#registerButton").bind("click",function(){
-				var username = $("#registerusername").val();
-				var password = $("#registerpassword").val();
-				var repassword = $("#registerrepassword").val();
+		function registerUser(){
+			
+			var username = $("#registerusername").val();
+			var password = $("#registerpassword").val();
+			var repassword = $("#registerrepassword").val();
+			var sex = $("input[name='sex']:checked").val();
+			
+			if(username.length<=0||password.length<=0||repassword<=0||sex==null){
+				layer.alert('所有选项不能为空!',{
+					title:'温馨提示',
+					//大小
+					area: ['350px', '180px'],
+					//坐标
+					offset: '100px'
+				});
 				
-				if(username.length<=0||password.length<=0||repassword<=0){
-					layer.alert('所有选项不能为空!',{
+				return;
+			}
+			
+			var registerParameter = 
+				JSON.stringify(
+				[    
+                   {username:username},
+                   {password:password},
+                   {repassword:repassword},
+                   {sex:sex},
+			     ]); 
+
+			$.ajax({    
+	            type:"post",   
+	            url:"/register/checkRegister",
+	            data:registerParameter,    
+	            contentType:"application/json; charset=utf-8",    
+	            dataType: "json",
+	            success: function (data,message) {
+	            	var reminder =data.remark;
+					layer.alert(reminder,{
 						title:'温馨提示',
 						//大小
 						area: ['350px', '180px'],
 						//坐标
-						offset: '100px'
+					    offset: '100px',
+					    
+					    //点击确认回调
+					    yes: function(index, layero){
+			    	       if(data.is_abnormal==1){
+			    	    	   layer.close(index);
+				    	    	window.location.href="/login"; 
+				      	      	return;
+				    	   }else{
+				    		   layer.close(index);
+				    	   }
+					    },
+					    //点击关闭回调
+					    cancel: function(index, layero){ 
+				    	   if(data.is_abnormal==1){
+				    	    	window.location.href="/login"; 
+				      	      	return;
+				    	   }
+					    }
 					});
-					
-					return;
-				}
-				
-				
-				var registerParameter = 
-					JSON.stringify(
-					[    
-                       {username:username},
-                       {password:password},
-                       {repassword:repassword},
-				     ]); 
-				
-				$.ajax({    
-		            type:"post",   
-		            url:"/register/checkRegister",
-		            data:registerParameter,    
-		            contentType:"application/json; charset=utf-8",    
-		            dataType: "json",
-		            success: function (data,message) {    
-		            	var reminder =data.remark;
-						layer.alert(reminder,{
-							title:'温馨提示',
-							//大小
-							area: ['350px', '180px'],
-							//坐标
-						    offset: '100px',
-						    
-						    //点击确认回调
-						    yes: function(index, layero){
-				    	       if(data.is_abnormal==1){
-				    	    	   layer.close(index);
-					    	    	window.location.href="/login"; 
-					      	      	return;
-					    	   }else{
-					    		   layer.close(index);
-					    	   }
-						    },
-						    //点击关闭回调
-						    cancel: function(index, layero){ 
-					    	   if(data.is_abnormal==1){
-					    	    	window.location.href="/login"; 
-					      	      	return;
-					    	   }
-						    }
-						});
-
-		    	        return;
-		            },
-		            error: function () {    
-		            }    
-		        })     
-				
-			});
+	    	        return;
+	            }   
+	       	 })     
+			
+			}
+		
+			function registerGoBack(){
+				history.go(-1);
+			}
 		</script>
 </html>

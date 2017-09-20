@@ -38,7 +38,7 @@
   </delete>
   
       <insert id="insertRegisterUser" parameterType="com.buy.tsg.entity.LoginUser">
-  	insert into t_loginuser (username,password ,createtime) value(#{username},#{password},#{createtime})
+  	insert into t_loginuser (username,password ,createtime,sex) value(#{username},#{password},#{createtime},#{sex})
   </insert>
   
   <insert id="insert" parameterType="com.buy.tsg.entity.LoginUser" >

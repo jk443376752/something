@@ -66,11 +66,11 @@
 						            						
 											
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<button id="applyingreset" onclick="applyingreset()" class="btn btn-purple">重置</button>
-											&nbsp;
 											<button id="applyingsousuo" onclick="applyingsousuo()" class="btn btn-success">搜索</button>
 											&nbsp;
 											<button id="applyingreset" onclick="AuthApplyAdd()" class="btn btn-primary">新增</button>
+											&nbsp;
+											<button id="applyingreset" onclick="applyingreset()" class="btn btn-purple">重置</button>
 										</fieldset>
 										
 									</div>

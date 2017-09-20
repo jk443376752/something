@@ -1,6 +1,5 @@
 package com.buy.tsg.controller;
 
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.buy.tsg.entity.LoginUser;
 import com.buy.tsg.service.RegisterService;
 import com.buy.tsg.utils.ResponseInfo;
 
@@ -27,15 +25,8 @@ public class RegisterController {
 		String username = (String)jsonArrayParameter.getJSONObject(0).get("username");
 		String password = (String)jsonArrayParameter.getJSONObject(1).get("password");
 		String repassword = (String)jsonArrayParameter.getJSONObject(2).get("repassword");
-		ResponseInfo responseInfoCheck = registerService.checkRegister(username, password, repassword);
-		
-		if(responseInfoCheck.getIs_abnormal()==1){
-			LoginUser loginUserParameter = new LoginUser();
-			loginUserParameter.setUsername(username);
-			loginUserParameter.setPassword(repassword);
-			loginUserParameter.setCreatetime(new Date());
-			registerService.insertRegisterUser(loginUserParameter);
-		}
+		String sex = (String)jsonArrayParameter.getJSONObject(3).get("sex");
+		ResponseInfo responseInfoCheck = registerService.checkRegister(username, password, repassword ,sex);
 		return responseInfoCheck;
 	}
 	
