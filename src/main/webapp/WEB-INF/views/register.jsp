@@ -12,6 +12,8 @@
 		<!-- ace styles -->
 		<link rel="stylesheet" href="/resources/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
+		
+		<link rel="stylesheet" href="/resources/layer/skin/default/layer.css">
 		<!-- js -->
 		<script src="/resources/jquery/jquery-1.11.1.js"></script>
 		<script src="/resources/bootstrap3.3.7/js/bootstrap.min.js"></script>

@@ -21,7 +21,18 @@
 		<link rel="stylesheet" href="/resources/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/resources/assets/css/ace-skins.min.css" />
+		
+		<script src="/resources/jquery/jquery-1.11.1.js"></script>
+		<script src="/resources/assets/js/bootstrap.min.js"></script>
+		<script src="/resources/assets/js/typeahead-bs2.min.js"></script>
+		
+		<!-- ace scripts -->
+		<!-- 必须引入 ,否则导航栏不能用 -->
 		<script src="/resources/assets/js/ace-extra.min.js"></script>
+		<script src="/resources/assets/js/ace-elements.min.js"></script>
+		<script src="/resources/assets/js/ace.min.js"></script>
+		
+		<script src="/resources/layer/layer.js"></script> 
 		
 		<!-- easyui -->
 		<!-- 	    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.5.3/themes/default/easyui.css"> -->
@@ -226,16 +237,5 @@
 					
 				}
 			</script>
-
-		<script src="/resources/jquery/jquery-1.11.1.js"></script>
-		<script src="/resources/assets/js/bootstrap.min.js"></script>
-		<script src="/resources/assets/js/typeahead-bs2.min.js"></script>
-		
-		<!-- ace scripts -->
-		<!-- 必须引入 ,否则导航栏不能用 -->
-		<script src="/resources/assets/js/ace-elements.min.js"></script>
-		<script src="/resources/assets/js/ace.min.js"></script>
-		<script src="/resources/layer/layer.js"></script> 
-		
 </body>
 </html>

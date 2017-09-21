@@ -1,5 +1,7 @@
 package com.buy.tsg.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.security.auth.Subject;
@@ -46,11 +48,21 @@ public class UserLoginServiceImpl extends BaseServiceImpl implements UserLoginSe
 		if(loginUser!=null){
 			LoginUser loginUserNew = new LoginUser();
 			//更改ip
-//			loginUserNew.setIp(ip);
+			loginUserNew.setIp(HttpSessionUtil.getRequest().getRemoteAddr());
 			//更改登录时间
-//			loginUserNew.setLogintime(null);
+			Date date=new Date();
+			SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String format = sdf.format(date);
+			Date newLoginTime =null;
+			try {
+				newLoginTime = sdf.parse(format);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loginUserNew.setLogintime(newLoginTime);
 			
-			loginUserNew.setId(user.getId());
+			loginUserNew.setId(loginUser.getId());
 			loginUserMapper.updateLoginUser(loginUserNew);
 			
 			//登录成功后把用户存放到redis里面去

@@ -20,7 +20,9 @@
 		<link rel="stylesheet" href="/resources/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/resources/assets/css/ace-skins.min.css" />
 		
-		<link rel="stylesheet" href="/resources/css/bootstrap-datepicker3.css">
+		<link rel="stylesheet" href="/resources/css/bootstrap-datepicker3.css"/>
+		
+		<link href="/resources/layer/theme/default/layer.css">
 		
 		<!-- 让bootstrap表单居中显示 -->
 		<style type="text/css">
@@ -29,8 +31,25 @@
 						height:38px;
 						}
 		</style>
+		
+		<script src="/resources/jquery/jquery-1.11.1.js"></script>
+		<script src="/resources/assets/js/bootstrap.min.js"></script>
+		<script src="/resources/assets/js/typeahead-bs2.min.js"></script>
+		
+		<!-- bootstrap日历插件 -->
+		
+		<script src="/resources/js/bootstrap-datepicker.min.js"></script>
+		<script src="/resources/js/bootstrap-datepicker.zh-CN.min.js"></script>
+		
+		<!-- ace scripts -->
+		<!-- 必须引入 ,否则导航栏不能用 -->
+		<script src="/resources/assets/js/ace-elements.min.js"></script>
+		<script src="/resources/assets/js/ace.min.js"></script>
 		<script src="/resources/assets/js/ace-extra.min.js"></script>
 		<script src="/resources/layer/layer.js"></script>
+		
+		<script src="/resources/layer/layer.js"></script> 
+		
 </head>
 
 		<body>
@@ -63,7 +82,8 @@
 						                     
 		                                    <input type="text" class="datepicker" size="12" placeholder="请选择" id="endtime" name="endtime"
 		            						data-date-format="yyyy-mm-dd" data-date-end-date="0d">  
-						            						
+		            						
+
 											
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<button id="applyingsousuo" onclick="applyingsousuo()" class="btn btn-success">搜索</button>
@@ -153,7 +173,7 @@
 							</div>
 						<!-- 表单结束 -->
 					</div><!-- /.page-content -->
-					
+			<!-- boostrap模态框开始 -->	
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">  
 			    <div class="modal-dialog" role="document">  
 			        <div class="modal-content">  
@@ -165,36 +185,42 @@
 			            <div class="modal-body"> 
 			                <form>  
 			                    <div class="form-group">  
-			                        <label for="recipient-name"  class="control-label">申请的用户名:</label>  
+			                        <label for="recipient-name"  class="control-label">申请的用户名 :</label>&nbsp;&nbsp;
+			                        <b id="myModelApplyNameMessage" style="font-size:14px;color:"></b>  
 			                        <input type="text" class="form-control" placeholder="请输入申请的用户名" id="myModelApplyName">  
 			                    </div>  
 			                    
 			                   <div class="form-group">  
-			                        <label for="recipient-name" class="control-label">申请用户的电话:</label>  
+			                        <label for="recipient-name" class="control-label">申请用户的电话 :</label> &nbsp;&nbsp;
+			                        <b id="myModelApplyTelphoneMessage" style="font-size:14px;color:"></b>   
 			                        <input type="text" class="form-control" placeholder="请输入申请用户的电话" id="myModelApplyTelphone">  
 			                    </div>  
 			                    
 			                    <div class="form-group">  
-			                        <label for="recipient-name" class="control-label">提交人用户名:</label>  
-			                        <input type="text" class="form-control" placeholder="请输入提交人的用户名" id="myModelSubmitTelphone">  
+			                        <label for="recipient-name" class="control-label">提交人用户名 :</label>&nbsp;&nbsp;
+			                        <b id="myModelSubmitNameMessage" style="font-size:14px;color:"></b>   
+			                        <input type="text" class="form-control" placeholder="请输入提交人的用户名" id="myModelSubmitName">  
 			                    </div>  
 			                    
 			                   <div class="form-group">  
-			                        <label for="recipient-name" class="control-label">提交人的电话:</label>  
-			                        <input type="text" class="form-control" placeholder="请输入提交人的电话" id="myModelSubmitTelphone">  
+			                        <label for="recipient-name" class="control-label">提交人的电话 :</label>&nbsp;&nbsp;
+			                        <b id="myModelSubmitTelphoneMessage" style="font-size:14px;color:"></b>  
+			                        <input type="text" class="form-control" placeholder="请输入提交人的电话" id="myModelSubmitTelphone">
 			                    </div> 
 			                    
 			                     <div class="form-group">  
-			                     	<label for="recipient-name" class="control-label">申请时间:</label>
+			                     	<label for="recipient-name" class="control-label">申请时间 :</label>
 			                     	</br>
 			                     	 
-				                    <input type="text" placeholder="请选择申请时间" class="datepicker" style="height:37px;width:535px"   name="myModelSubmitTime"
+				                    <input type="text" placeholder="请选择申请时间" class="datepicker" style="height:37px;width:535px" 
+				                    id="myModelSubmitTime"  name="myModelSubmitTime"
 							         data-date-format="yyyy-mm-dd" data-date-end-date="0d">
 			                     </div>
 			                      
 			                    <div class="form-group">  
-			                        <label for="message-text" class="control-label">备注信息:</label>  
-			                        <textarea class="form-control" placeholder="请备注申请权限"  id="myModelbeizhu"></textarea>  
+			                        <label for="message-text" class="control-label">备注信息 :</label>
+			                        <b id="myModelbeizhuMessage" style="font-size:14px;color:"></b>  
+			                        <textarea class="form-control" placeholder="请备注申请权限,否则会申请失败"  id="myModelbeizhu"></textarea>  
 			                    </div>  
 			                </form>  
 			            </div>  
@@ -207,21 +233,6 @@
 			</div>  
 <!-- 			模态框结束	 -->
 					
-		<script src="/resources/jquery/jquery-1.11.1.js"></script>
-		<script src="/resources/assets/js/bootstrap.min.js"></script>
-		<script src="/resources/assets/js/typeahead-bs2.min.js"></script>
-		
-		<!-- bootstrap日历插件 -->
-		
-		<script src="/resources/js/bootstrap-datepicker.min.js"></script>
-		<script src="/resources/js/bootstrap-datepicker.zh-CN.min.js"></script>
-		
-		<!-- ace scripts -->
-		<!-- 必须引入 ,否则导航栏不能用 -->
-		<script src="/resources/assets/js/ace-elements.min.js"></script>
-		<script src="/resources/assets/js/ace.min.js"></script>
-		<script src="/resources/layer/layer.js"></script> 
-		
 		<script type="text/javascript">
 			$(function() {
 				
@@ -394,6 +405,7 @@
 			}
 			
 			function AuthApplyDelete(parameter){
+				//对话框
 				layer.open({
 					title:'温馨提示',
 					//大小
@@ -403,6 +415,7 @@
 					content:'删除后不可恢复 ,你确定删除？',
 					btn: ['确认', '取消'],
 					yes: function(index,layero){
+						//关闭窗口
 						layer.close(index);
 						$.post("/AuthApplyMessage/AuthApplyDelete",{id:parameter},function(data){
 							var reminder = data.remark;
@@ -425,10 +438,115 @@
 				alert(parameter);
 			}
 			
+			
+			//新增申请
 			function AuthApplyAdd(parameter){
-				$('#myModal').modal('show');  
+				//每次打开模态框的时候先清除上一次的
+				$("#myModelApplyName").val("");
+				$("#myModelApplyTelphone").val("");
+				$("#myModelSubmitName").val("");
+				$("#myModelSubmitTelphone").val("");
+				$("#myModelSubmitTime").val("");
+				$("#myModelbeizhu").val("");
+				
+				$("#myModelApplyNameMessage").text("");
+				$("#myModelApplyTelphoneMessage").text("");
+				$("#myModelSubmitNameMessage").text("");
+				$("#myModelSubmitTelphoneMessage").text("");
+				$("#myModelSubmitTimeMessage").text("");
+				$("#myModelbeizhuMessage").text("");
+				
+				$('#myModal').modal('show');
+				//验证申请人的用户名
+				$("#myModelApplyName").blur(function(){
+					var myModelApplyName = $("#myModelApplyName").val();
+					$.post("/AuthApplyMessage/checkAddApplying/myModelApplyName",{username:myModelApplyName},function(data){
+						var remark = data.remark;
+						if(data.is_abnormal==0){
+							$("#myModelApplyNameMessage").css("color","red");
+							$("#myModelApplyNameMessage").text(remark);
+							$("#myModelApplyName").val("");
+						}else{
+							$("#myModelApplyNameMessage").css("color","#66CC33");
+							$("#myModelApplyNameMessage").text(remark);
+						}
+					})
+				})
 
+				//验证申请人电话
+				$("#myModelApplyTelphone").blur(function(){
+					var myModelApplyTelphone = $("#myModelApplyTelphone").val();
+					$.post("/AuthApplyMessage/checkAddApplying/applyTelphone",{applyTelphone:myModelApplyTelphone}
+					,function(data){
+						var remark = data.remark;
+						if(data.is_abnormal==0){
+							$("#myModelApplyTelphoneMessage").css("color","red");
+							$("#myModelApplyTelphoneMessage").text(remark);
+							$("#myModelApplyTelphone").val("");
+						}else{
+							$("#myModelApplyTelphoneMessage").css("color","#66CC33");
+							$("#myModelApplyTelphoneMessage").text(remark);
+						}
+						
+					})
+				})
+				
+				//验证提交人的用户名
+				$("#myModelSubmitName").blur(function(){
+					var myModelSubmitName = $("#myModelSubmitName").val();
+					$.post("/AuthApplyMessage/checkAddApplying/myModelSubmitName",{myModelSubmitName:myModelSubmitName},function(data){
+						var remark = data.remark;
+						if(data.is_abnormal==0){
+							$("#myModelSubmitNameMessage").css("color","red");
+							$("#myModelSubmitNameMessage").text(remark);
+							$("#myModelSubmitName").val("");
+						}else{
+							$("#myModelSubmitNameMessage").css("color","#66CC33");
+							$("#myModelSubmitNameMessage").text(remark);
+						}
+					})
+				})
+				
+				
+					$("#myModelSubmitTelphone").blur(function(){
+					var myModelSubmitTelphone = $("#myModelSubmitTelphone").val();
+					$.post("/AuthApplyMessage/checkAddApplying/myModelSubmitTelphone",{myModelSubmitTelphone:myModelSubmitTelphone}
+					,function(data){
+						var remark = data.remark;
+						if(data.is_abnormal==0){
+							$("#myModelSubmitTelphoneMessage").css("color","red");
+							$("#myModelSubmitTelphoneMessage").text(remark);
+							$("#myModelSubmitTelphone").val("");
+						}else{
+							$("#myModelSubmitTelphoneMessage").css("color","#66CC33");
+							$("#myModelSubmitTelphoneMessage").text(remark);
+						}
+						
+					})
+				})
+				
+				$("#myModelbeizhu").blur(function(){
+					var myModelbeizhu = $("#myModelbeizhu").val();
+					if(myModelbeizhu==null||myModelbeizhu.length==0){
+							$("#myModelbeizhuMessage").css("color","red");
+							$("#myModelbeizhuMessage").text("备注信息不能为空 !");
+							$("#myModelbeizhu").val("");
+							return;
+					 }
+					
+					if(myModelbeizhu!=null&&myModelbeizhu.length>100){
+						$("#myModelbeizhu").val("");
+						$("#myModelbeizhuMessage").css("color","red");
+						$("#myModelbeizhuMessage").text("备注信息不能为超过100个字符 !");
+						return;
+					}
+					$("#myModelbeizhuMessage").css("color","#66CC33");
+					$("#myModelbeizhuMessage").text("验证已通过 !");
+				})
+
+				
 			}
+			
 		</script>
 		
 </body>

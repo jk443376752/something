@@ -120,7 +120,7 @@
   </insert>
   
       <update id="updateLoginUser" parameterType="com.buy.tsg.entity.LoginUser">
-  	update t_loginuser set ip = #{ip} ,logintime =#{logintime}
+  	update t_loginuser set ip = #{ip} ,logintime =#{logintime} where id =#{id}
   </update>
   
   <update id="updateByPrimaryKeySelective" parameterType="com.buy.tsg.entity.LoginUser" >

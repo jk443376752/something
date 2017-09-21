@@ -1,7 +1,7 @@
 package com.buy.tsg.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.buy.tsg.entity.LoginUser;
-import com.buy.tsg.query.AuthApplyMessageQueryParameter;
 import com.buy.tsg.service.AuthApplyMessageService;
 import com.buy.tsg.service.UserLoginService;
 import com.buy.tsg.utils.ResponseInfo;
@@ -40,12 +39,24 @@ public class LoginController {
 	@RequestMapping(value="/login/check",method={RequestMethod.POST})
 	@ResponseBody
 	public ResponseInfo checkLogin(@RequestParam("username") String username , @RequestParam("password") String password){
-		
-		LoginUser loginUser = new LoginUser();
-		loginUser.setUsername(username);
-		loginUser.setPassword(password);
-		ResponseInfo responseInfo = userLoginService.checkLogin(loginUser);
-		return responseInfo;
+		String regex = "[A-Za-z][0-9A-Za-z]{3,9}";
+		//编译正则表达式
+		Pattern pattern = Pattern.compile(regex);
+		//匹配正则
+		Matcher matcher = pattern.matcher(username);
+		if(!matcher.matches()){
+			ResponseInfo rif = new ResponseInfo();
+			rif.setIs_abnormal(0);
+			rif.setRemark("该用户名未遵守注册规范");
+			return rif;
+		}else{
+			LoginUser loginUser = new LoginUser();
+			loginUser.setUsername(username);
+			loginUser.setPassword(password);
+			ResponseInfo responseInfo = userLoginService.checkLogin(loginUser);
+			return responseInfo;
+		}
+
 	}
 	
 	@RequestMapping("/main/manager")
