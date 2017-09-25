@@ -83,4 +83,12 @@ public class AuthApplyMessage {
     public void setBeizhu(String beizhu) {
         this.beizhu = beizhu == null ? null : beizhu.trim();
     }
+
+	@Override
+	public String toString() {
+		return "AuthApplyMessage [id=" + id + ", applyName=" + applyName + ", applyTelphone=" + applyTelphone
+				+ ", submitName=" + submitName + ", submitTelphone=" + submitTelphone + ", submitTime=" + submitTime
+				+ ", status=" + status + ", beizhu=" + beizhu + "]";
+	}
+    
 }

@@ -65,5 +65,10 @@ public class AuthApplyMessageServiceImpl implements AuthApplyMessageService {
 		return rfi;
 	}
 
+	@Override
+	public List<String> selectSubmitTelphoneBysubmitName(String submitName) {
+		// TODO Auto-generated method stub
+		return authApplyMessageMapper.selectSubmitTelphoneBysubmitName(submitName);
+	}
 
 }

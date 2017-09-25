@@ -63,6 +63,19 @@
    <select id="getTotalCount" parameterType="com.buy.tsg.query.AuthApplyMessageQueryParameter" resultType="int">
    		select count(*) from t_authapplymessage a <include refid="wheresql"/>
    </select>
+   
+   <select id="selectSubmitTelphoneBysubmitName" parameterType="string" resultType="java.lang.String">
+   		 select submit_telphone from t_authapplymessage where submit_name =#{submitName}
+   </select>
+   
+   <select id="selectAuthApplyMessageByApplyTelphone" parameterType="java.lang.String" 
+   resultType="com.buy.tsg.entity.AuthApplyMessage">
+   		select * from t_authapplymessage where apply_telphone = #{applyTelphone}
+   </select>
+   
+   <select id="selectAuthApplyMessageByApplyMap" parameterType="map" resultType="com.buy.tsg.entity.AuthApplyMessage">
+   		select * from t_authapplymessage  where apply_name=#{applyName} and status=#{status}
+   </select>
   
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 

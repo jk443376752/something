@@ -227,9 +227,9 @@
 					}
 				} 
 				
-				window.onresize=function(){  
-				     changeFrameHeight();  
-				} 
+// 				window.onresize=function(){  
+// 				     changeFrameHeight();  
+// 				} 
 				
 				function goNav(url){
 					

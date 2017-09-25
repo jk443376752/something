@@ -24,4 +24,11 @@ public interface AuthApplyMessageMapper {
     List<Map<String ,Object>> getAuthApplyMessageAll(AuthApplyMessageQueryParameter authApplyMessageQueryParameter);
     
     Integer getTotalCount (AuthApplyMessageQueryParameter authApplyMessageQueryParameter);
+    
+    List<String> selectSubmitTelphoneBysubmitName(String submitName);
+    
+    AuthApplyMessage selectAuthApplyMessageByApplyMap(Map<String,Object> parameterMap);
+    
+    AuthApplyMessage selectAuthApplyMessageByApplyTelphone(String submitTelphone);
+
 }

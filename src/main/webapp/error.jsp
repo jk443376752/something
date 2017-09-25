@@ -33,39 +33,34 @@
 												<i class="icon-random"></i>
 												500
 											</span>
-											本页面只允许管理员登录
+											访问本页面需要权限!
 										</h1>
 
 										<hr />
-										<h3 class="lighter smaller">
-										你可以去充值成 管理员用户
+										<h2 class="lighter smaller">
+											请联系管理员 !
 											<i class="icon-wrench icon-animated-wrench bigger-125"></i>
-										</h3>
+										</h2>
 
 										<div class="space"></div>
 
 										<div>
-											<h4 class="lighter smaller">请不要蒙混过关</h4>
+											<h2 class="lighter smaller">请不要蒙混过关 !</h2>
 
 											<ul class="list-unstyled spaced inline bigger-110 margin-15">
 												<li>
 													<i class="icon-hand-right blue"></i>
 													次山是我开
 												</li>
-
+												
 												<li>
 													<i class="icon-hand-right blue"></i>
-													次树是我栽
+													欲过次路!
 												</li>
 												
 												<li>
 													<i class="icon-hand-right blue"></i>
-													要想打次过
-												</li>
-												
-												<li>
-													<i class="icon-hand-right blue"></i>
-													留下买路财
+													你懂得哦!
 												</li>
 													
 											</ul>

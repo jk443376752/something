@@ -180,10 +180,11 @@
 			            <div class="modal-header">  
 			                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  
 			                        aria-hidden="true">×</span></button>  
-			                <h4 class="modal-title" id="exampleModalLabel">新增申请</h4>  
+			                <h4 class="modal-title" id="myModalTitle">新增申请</h4>  
 			            </div>  
 			            <div class="modal-body"> 
-			                <form>  
+			                <form> 
+			                 
 			                    <div class="form-group">  
 			                        <label for="recipient-name"  class="control-label">申请的用户名 :</label>&nbsp;&nbsp;
 			                        <b id="myModelApplyNameMessage" style="font-size:14px;color:"></b>  
@@ -196,26 +197,14 @@
 			                        <input type="text" class="form-control" placeholder="请输入申请用户的电话" id="myModelApplyTelphone">  
 			                    </div>  
 			                    
-			                    <div class="form-group">  
-			                        <label for="recipient-name" class="control-label">提交人用户名 :</label>&nbsp;&nbsp;
-			                        <b id="myModelSubmitNameMessage" style="font-size:14px;color:"></b>   
-			                        <input type="text" class="form-control" placeholder="请输入提交人的用户名" id="myModelSubmitName">  
-			                    </div>  
-			                    
-			                   <div class="form-group">  
-			                        <label for="recipient-name" class="control-label">提交人的电话 :</label>&nbsp;&nbsp;
-			                        <b id="myModelSubmitTelphoneMessage" style="font-size:14px;color:"></b>  
-			                        <input type="text" class="form-control" placeholder="请输入提交人的电话" id="myModelSubmitTelphone">
-			                    </div> 
-			                    
-			                     <div class="form-group">  
-			                     	<label for="recipient-name" class="control-label">申请时间 :</label>
-			                     	</br>
-			                     	 
-				                    <input type="text" placeholder="请选择申请时间" class="datepicker" style="height:37px;width:535px" 
-				                    id="myModelSubmitTime"  name="myModelSubmitTime"
-							         data-date-format="yyyy-mm-dd" data-date-end-date="0d">
-			                     </div>
+		                       <div class="form-group">  
+		                     	 <label for="recipient-name" class="control-label">申请时间 :</label>
+		                     	</br>
+		                     	 
+			                     <input type="text" placeholder="请选择申请时间" class="datepicker" style="height:37px;width:535px" 
+			                     id="myModelSubmitTime"  name="myModelSubmitTime"
+						         data-date-format="yyyy-mm-dd" data-date-end-date="0d">
+		                       </div>
 			                      
 			                    <div class="form-group">  
 			                        <label for="message-text" class="control-label">备注信息 :</label>
@@ -226,7 +215,8 @@
 			            </div>  
 			            <div class="modal-footer">  
 			                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
-			                <button type="button" id="myModelSubmit" class="btn btn-primary" data-dismiss="modal">提交</button>  
+			                <!-- data-dismiss="modal"这个属性设置后可以取消模态框 -->
+			                <button type="button" id="myAddModelSubmit" name="" class="btn btn-primary">提交</button>  
 			            </div>  
 			        </div>  
 			    </div>  
@@ -288,9 +278,7 @@
 									'<td>'+data.submit_time+'</td>'+
 									'<td style="width:150px">'+data.beizhu+'</td>'+
 									'<td>'+
-									
 										'<a class="red" href="javascript:AuthApplyDelete('+data.id+')"><i class="icon-trash bigger-130"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-										
 										'<a class="green" href="javascript:AuthApplyUpdate('+data.id+')"><i class="icon-pencil bigger-130"></i></a></td>'+
 								'</tr>'
 							)
@@ -434,33 +422,117 @@
 			}
 			
 			
-			function AuthApplyUpdate(parameter){
-				alert(parameter);
+			//修改验证
+			function AuthApplyUpdate(id){
+				$.post("/AuthApplyMessage/updateAuthApplying",{id:id},function(data){
+					$("#myAddModelSubmit").attr("name","myUpdateModelSubmit");
+					var data = data.obj;
+					var applyName = data.applyName;
+					var applyTelphone = data.applyTelphone;
+					var beizhu = data.beizhu;
+					//得到的是一窜时间格式的数字
+					var submitTimeInt = data.submitTime;
+					
+					var submitTime=new Date(parseInt(submitTimeInt));	
+					var Year = submitTime.getFullYear(); 
+		            var Month = submitTime.getMonth()+1;
+		            var Day = submitTime.getDate();
+		            var timeStr =  Year+'-'+Month+'-'+Day;//最后拼接时间  
+					
+					$("#myModelApplyName").val(applyName);
+					$("#myModelApplyTelphone").val(applyTelphone);
+					$("#myModelbeizhu").val(beizhu);
+					$("#myModelSubmitTime").val(timeStr);
+					
+					$("#myModelApplyNameMessage").text("");
+					$("#myModelApplyTelphoneMessage").text("");
+					$("#myModelSubmitTimeMessage").text("");
+					$("#myModelbeizhuMessage").text("");
+					
+					$("#myModalTitle").text("修改信息");
+					$('#myModal').modal('show');
+					
+					//验证申请人的用户名
+					$("#myModelApplyName").blur(function(){
+						var myModelApplyName = $("#myModelApplyName").val();
+						$.post("/AuthApplyMessage/update/myModelApplyName",{username:myModelApplyName},function(data){
+							var remark = data.remark;
+							if(data.is_abnormal==0){
+								$("#myModelApplyNameMessage").css("color","red");
+								$("#myModelApplyNameMessage").text(remark);
+								$("#myModelApplyName").val("");
+							}else{
+								$("#myModelApplyNameMessage").css("color","#66CC33");
+								$("#myModelApplyNameMessage").text(remark);
+							}
+						})
+					})
+					
+					//验证申请人电话
+					$("#myModelApplyTelphone").blur(function(){
+						var myModelApplyTelphone = $("#myModelApplyTelphone").val();
+						
+						$.post("/AuthApplyMessage/update/applyTelphone",
+							{applyTelphone:applyTelphone,myModelApplyTelphone:myModelApplyTelphone}
+						,function(data){
+							var remark = data.remark;
+							if(data.is_abnormal==0){
+								$("#myModelApplyTelphoneMessage").css("color","red");
+								$("#myModelApplyTelphoneMessage").text(remark);
+								$("#myModelApplyTelphone").val("");
+							}else{
+								$("#myModelApplyTelphoneMessage").css("color","#66CC33");
+								$("#myModelApplyTelphoneMessage").text(remark);
+							}
+							
+						})
+					 })
+					
+					 //验证备注信息
+					$("#myModelbeizhu").blur(function(){
+						var myModelbeizhu = $("#myModelbeizhu").val();
+						if(myModelbeizhu==null||myModelbeizhu.length==0){
+								$("#myModelbeizhuMessage").css("color","red");
+								$("#myModelbeizhuMessage").text("备注信息不能为空 !");
+								$("#myModelbeizhu").val("");
+								return;
+						 }
+						
+						if(myModelbeizhu!=null&&myModelbeizhu.length>100){
+							$("#myModelbeizhu").val("");
+							$("#myModelbeizhuMessage").css("color","red");
+							$("#myModelbeizhuMessage").text("备注信息不能为超过100个字符 !");
+							return;
+						}
+						$("#myModelbeizhuMessage").css("color","#66CC33");
+						$("#myModelbeizhuMessage").text("验证已通过 !");
+					})
+					
+					
+				})
 			}
 			
 			
-			//新增申请
-			function AuthApplyAdd(parameter){
+			//新增申请表单验证验证
+			function AuthApplyAdd(data){
+				$("#myModalTitle").text("新增信息");
+				$("#myAddModelSubmit").attr("name","myAddModelSubmit");
 				//每次打开模态框的时候先清除上一次的
 				$("#myModelApplyName").val("");
 				$("#myModelApplyTelphone").val("");
-				$("#myModelSubmitName").val("");
-				$("#myModelSubmitTelphone").val("");
 				$("#myModelSubmitTime").val("");
 				$("#myModelbeizhu").val("");
 				
 				$("#myModelApplyNameMessage").text("");
 				$("#myModelApplyTelphoneMessage").text("");
-				$("#myModelSubmitNameMessage").text("");
-				$("#myModelSubmitTelphoneMessage").text("");
 				$("#myModelSubmitTimeMessage").text("");
 				$("#myModelbeizhuMessage").text("");
-				
 				$('#myModal').modal('show');
+
 				//验证申请人的用户名
 				$("#myModelApplyName").blur(function(){
 					var myModelApplyName = $("#myModelApplyName").val();
-					$.post("/AuthApplyMessage/checkAddApplying/myModelApplyName",{username:myModelApplyName},function(data){
+					$.post("/AuthApplyMessage/add/checkAddApplying/myModelApplyName",{username:myModelApplyName},function(data){
 						var remark = data.remark;
 						if(data.is_abnormal==0){
 							$("#myModelApplyNameMessage").css("color","red");
@@ -476,7 +548,8 @@
 				//验证申请人电话
 				$("#myModelApplyTelphone").blur(function(){
 					var myModelApplyTelphone = $("#myModelApplyTelphone").val();
-					$.post("/AuthApplyMessage/checkAddApplying/applyTelphone",{applyTelphone:myModelApplyTelphone}
+					
+					$.post("/AuthApplyMessage/add/checkAddApplying/applyTelphone",{applyTelphone:myModelApplyTelphone}
 					,function(data){
 						var remark = data.remark;
 						if(data.is_abnormal==0){
@@ -491,40 +564,7 @@
 					})
 				})
 				
-				//验证提交人的用户名
-				$("#myModelSubmitName").blur(function(){
-					var myModelSubmitName = $("#myModelSubmitName").val();
-					$.post("/AuthApplyMessage/checkAddApplying/myModelSubmitName",{myModelSubmitName:myModelSubmitName},function(data){
-						var remark = data.remark;
-						if(data.is_abnormal==0){
-							$("#myModelSubmitNameMessage").css("color","red");
-							$("#myModelSubmitNameMessage").text(remark);
-							$("#myModelSubmitName").val("");
-						}else{
-							$("#myModelSubmitNameMessage").css("color","#66CC33");
-							$("#myModelSubmitNameMessage").text(remark);
-						}
-					})
-				})
-				
-				
-					$("#myModelSubmitTelphone").blur(function(){
-					var myModelSubmitTelphone = $("#myModelSubmitTelphone").val();
-					$.post("/AuthApplyMessage/checkAddApplying/myModelSubmitTelphone",{myModelSubmitTelphone:myModelSubmitTelphone}
-					,function(data){
-						var remark = data.remark;
-						if(data.is_abnormal==0){
-							$("#myModelSubmitTelphoneMessage").css("color","red");
-							$("#myModelSubmitTelphoneMessage").text(remark);
-							$("#myModelSubmitTelphone").val("");
-						}else{
-							$("#myModelSubmitTelphoneMessage").css("color","#66CC33");
-							$("#myModelSubmitTelphoneMessage").text(remark);
-						}
-						
-					})
-				})
-				
+				//验证备注信息
 				$("#myModelbeizhu").blur(function(){
 					var myModelbeizhu = $("#myModelbeizhu").val();
 					if(myModelbeizhu==null||myModelbeizhu.length==0){
@@ -543,10 +583,113 @@
 					$("#myModelbeizhuMessage").css("color","#66CC33");
 					$("#myModelbeizhuMessage").text("验证已通过 !");
 				})
-
-				
 			}
 			
+			$("#myAddModelSubmit").bind("click",function(parameter){
+				//清空提交
+				$("#myAddModelSubmit").attr("data-dismiss","");
+				
+				var myModelApplyName = $("#myModelApplyName").val();
+				var myModelApplyTelphone = $("#myModelApplyTelphone").val();
+				var myModelSubmitTime = $("#myModelSubmitTime").val();
+				var myModelbeizhu = $("#myModelbeizhu").val();
+				    
+				var parameters = JSON.stringify({
+					applyName:myModelApplyName,
+					applyTelphone:myModelApplyTelphone,
+					submitTime:myModelSubmitTime,
+					beizhu:myModelbeizhu
+				});
+				
+				if($("#myAddModelSubmit").attr("name")=="myAddModelSubmit"){
+					$.ajax({
+						type:"post",
+						contentType:"application/json; charset=utf-8",
+						url:"/AuthApplyMessage/add/submitApplyingAdd",
+						data:parameters,
+						dataType:"json", 
+						success: function (data){
+							var is_abnormal = data.is_abnormal;
+							var remark = data.remark;
+							if(is_abnormal==0){
+								layer.alert(remark,{
+									title:'温馨提示',
+									//大小
+									area: ['350px', '180px'],
+									//坐标
+								    offset: '100px',
+								    //点击确认回调
+								    yes: function(index, layero){
+						    	    	layer.close(index);
+								    },
+								});
+							}
+							
+							if(is_abnormal==1){
+								layer.alert(remark,{
+									title:'温馨提示',
+									//大小
+									area: ['350px', '180px'],
+									//坐标
+								    offset: '100px',
+								    //点击确认回调
+								    yes: function(index, layero){
+						    	    	layer.close(index);
+										$("#myModelSubmit").attr("data-dismiss","modal");
+										window.location.reload();
+								    },
+								});
+							}
+						}
+					})
+				}
+				
+				if($("#myAddModelSubmit").attr("name")=="myUpdateModelSubmit"){
+					
+					$.ajax({
+						type:"post",
+						contentType:"application/json; charset=utf-8",
+						url:"/AuthApplyMessage/update/submitApplying",
+						data:parameters,
+						dataType:"json", 
+						success: function (data){
+							var is_abnormal = data.is_abnormal;
+							var remark = data.remark;
+							if(is_abnormal==0){
+								layer.alert(remark,{
+									title:'温馨提示',
+									//大小
+									area: ['350px', '180px'],
+									//坐标
+								    offset: '100px',
+								    //点击确认回调
+								    yes: function(index, layero){
+						    	    	layer.close(index);
+								    },
+								});
+							}
+							
+							if(is_abnormal==1){
+								layer.alert(remark,{
+									title:'温馨提示',
+									//大小
+									area: ['350px', '180px'],
+									//坐标
+								    offset: '100px',
+								    //点击确认回调
+								    yes: function(index, layero){
+						    	    	layer.close(index);
+										$("#myModelSubmit").attr("data-dismiss","modal");
+										window.location.reload();
+								    },
+								});
+							}
+						}
+					})
+					
+				}
+				
+			})
 		</script>
 		
 </body>
