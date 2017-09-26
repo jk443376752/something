@@ -9,16 +9,26 @@
     <result column="submit_telphone" property="submitTelphone" jdbcType="VARCHAR" />
     <result column="submit_time" property="submitTime" jdbcType="DATE" />
     <result column="status" property="status" jdbcType="TINYINT" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.buy.tsg.entity.AuthApplyMessage" extends="BaseResultMap" >
     <result column="beizhu" property="beizhu" jdbcType="LONGVARCHAR" />
+    <result column="defeatMessage" property="defeatmessage" jdbcType="LONGVARCHAR" />
   </resultMap>
+  
+  
+  
   <sql id="Base_Column_List" >
     id, apply_name, apply_telphone, submit_name, submit_telphone, submit_time, status
   </sql>
   <sql id="Blob_Column_List" >
-    beizhu
+    beizhu, defeatMessage
   </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_authapplymessage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
   
    <!-- 如果有查询条件给查询添加条件 -->
     <sql id="wheresql">
@@ -77,14 +87,6 @@
    		select * from t_authapplymessage  where apply_name=#{applyName} and status=#{status}
    </select>
   
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_authapplymessage
-    where id = #{id,jdbcType=INTEGER}
-  </select>
   
   
   
@@ -95,10 +97,12 @@
   <insert id="insert" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
     insert into t_authapplymessage (id, apply_name, apply_telphone, 
       submit_name, submit_telphone, submit_time, 
-      status, beizhu)
+      status, beizhu, defeatMessage
+      )
     values (#{id,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{applyTelphone,jdbcType=VARCHAR}, 
       #{submitName,jdbcType=VARCHAR}, #{submitTelphone,jdbcType=VARCHAR}, #{submitTime,jdbcType=DATE}, 
-      #{status,jdbcType=TINYINT}, #{beizhu,jdbcType=LONGVARCHAR})
+      #{status,jdbcType=TINYINT}, #{beizhu,jdbcType=LONGVARCHAR}, #{defeatmessage,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.buy.tsg.entity.AuthApplyMessage" >
     insert into t_authapplymessage
@@ -127,6 +131,9 @@
       <if test="beizhu != null" >
         beizhu,
       </if>
+      <if test="defeatmessage != null" >
+        defeatMessage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -152,6 +159,9 @@
       </if>
       <if test="beizhu != null" >
         #{beizhu,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="defeatmessage != null" >
+        #{defeatmessage,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -179,6 +189,9 @@
       <if test="beizhu != null" >
         beizhu = #{beizhu,jdbcType=LONGVARCHAR},
       </if>
+      <if test="defeatmessage != null" >
+        defeatMessage = #{defeatmessage,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +203,8 @@
       submit_telphone = #{submitTelphone,jdbcType=VARCHAR},
       submit_time = #{submitTime,jdbcType=DATE},
       status = #{status,jdbcType=TINYINT},
-      beizhu = #{beizhu,jdbcType=LONGVARCHAR}
+      beizhu = #{beizhu,jdbcType=LONGVARCHAR},
+      defeatMessage = #{defeatmessage,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.buy.tsg.entity.AuthApplyMessage" >

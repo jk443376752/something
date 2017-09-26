@@ -225,7 +225,6 @@
 					
 		<script type="text/javascript">
 			$(function() {
-				
 				//页面加载的时候加载时间按钮
                 $('.datepicker').datepicker({
                 	keyboardNavigation:false,

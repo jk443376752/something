@@ -71,4 +71,10 @@ public class AuthApplyMessageServiceImpl implements AuthApplyMessageService {
 		return authApplyMessageMapper.selectSubmitTelphoneBysubmitName(submitName);
 	}
 
+	@Override
+	public void updateByPrimaryKey(AuthApplyMessage authApplyMessage) {
+		authApplyMessageMapper.updateByPrimaryKey(authApplyMessage);
+		
+	}
+
 }

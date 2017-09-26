@@ -17,9 +17,12 @@ public interface AuthApplyMessageMapper {
 
     int updateByPrimaryKeySelective(AuthApplyMessage record);
 
+    int updateByPrimaryKeyWithBLOBs(AuthApplyMessage record);
+
     int updateByPrimaryKey(AuthApplyMessage record);
-    
-    //以上为Mybatis3自动生成
+	
+	
+	    //以上为Mybatis3自动生成
     
     List<Map<String ,Object>> getAuthApplyMessageAll(AuthApplyMessageQueryParameter authApplyMessageQueryParameter);
     
@@ -30,5 +33,4 @@ public interface AuthApplyMessageMapper {
     AuthApplyMessage selectAuthApplyMessageByApplyMap(Map<String,Object> parameterMap);
     
     AuthApplyMessage selectAuthApplyMessageByApplyTelphone(String submitTelphone);
-
 }

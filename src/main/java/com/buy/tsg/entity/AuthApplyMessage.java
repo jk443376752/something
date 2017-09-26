@@ -15,10 +15,27 @@ public class AuthApplyMessage {
 
     private Date submitTime;
 
-    //0表示正在申请,1表示申请成功 ,2表示申请失败
     private Byte status;
+	
+	private String beizhu;
 
-    private String beizhu;
+    private String defeatmessage;
+
+    public String getBeizhu() {
+        return beizhu;
+    }
+
+    public void setBeizhu(String beizhu) {
+        this.beizhu = beizhu == null ? null : beizhu.trim();
+    }
+
+    public String getDefeatmessage() {
+        return defeatmessage;
+    }
+
+    public void setDefeatmessage(String defeatmessage) {
+        this.defeatmessage = defeatmessage == null ? null : defeatmessage.trim();
+    }
 
     public Integer getId() {
         return id;
@@ -75,20 +92,4 @@ public class AuthApplyMessage {
     public void setStatus(Byte status) {
         this.status = status;
     }
-
-    public String getBeizhu() {
-        return beizhu;
-    }
-
-    public void setBeizhu(String beizhu) {
-        this.beizhu = beizhu == null ? null : beizhu.trim();
-    }
-
-	@Override
-	public String toString() {
-		return "AuthApplyMessage [id=" + id + ", applyName=" + applyName + ", applyTelphone=" + applyTelphone
-				+ ", submitName=" + submitName + ", submitTelphone=" + submitTelphone + ", submitTime=" + submitTime
-				+ ", status=" + status + ", beizhu=" + beizhu + "]";
-	}
-    
 }

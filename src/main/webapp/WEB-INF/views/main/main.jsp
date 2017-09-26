@@ -43,7 +43,7 @@
 	</head>
 	
 	<!-- 去掉竖滚动条 -->
-<!-- 	<body style="overflow:-Scroll;overflow-y:hidden" >   -->
+	<!-- 	<body style="overflow:-Scroll;overflow-y:hidden" >   -->
 	<!-- 去掉横滚动条 -->
 	<body style="overflow:-Scroll;overflow-x:hidden">
 
@@ -226,10 +226,6 @@
 						iframe.width = screen.width - $("#sidebar").width()-25;
 					}
 				} 
-				
-// 				window.onresize=function(){  
-// 				     changeFrameHeight();  
-// 				} 
 				
 				function goNav(url){
 					
