@@ -17,5 +17,7 @@ public interface AuthApplyMessageService{
     List<String> selectSubmitTelphoneBysubmitName(String submitName);
     
     void updateByPrimaryKey(AuthApplyMessage authApplyMessage);
+    
+    AuthApplyMessage selectAuthApplyMessageById(Integer id);
 
 }

@@ -116,7 +116,7 @@
 
 					<ul class="nav nav-list">
 						<li class="active">
-							<a href="/main">
+							<a href="/management/authapply">
 								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 首页 </span>
 							</a>
@@ -132,7 +132,7 @@
 
 							<ul class="submenu">
 								<li>
-									<a href="form-elements.html">
+									<a href="/main/manager">
 										<i class="icon-double-angle-right"></i>
 										权限添加申请
 									</a>

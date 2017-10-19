@@ -17,8 +17,6 @@ public interface AuthApplyMessageMapper {
 
     int updateByPrimaryKeySelective(AuthApplyMessage record);
 
-    int updateByPrimaryKeyWithBLOBs(AuthApplyMessage record);
-
     int updateByPrimaryKey(AuthApplyMessage record);
 	
 	
@@ -33,4 +31,6 @@ public interface AuthApplyMessageMapper {
     AuthApplyMessage selectAuthApplyMessageByApplyMap(Map<String,Object> parameterMap);
     
     AuthApplyMessage selectAuthApplyMessageByApplyTelphone(String submitTelphone);
+    
+    AuthApplyMessage selectAuthApplyMessageById(Integer id);
 }

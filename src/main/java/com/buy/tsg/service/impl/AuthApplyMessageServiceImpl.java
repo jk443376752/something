@@ -77,4 +77,9 @@ public class AuthApplyMessageServiceImpl implements AuthApplyMessageService {
 		
 	}
 
+	@Override
+	public AuthApplyMessage selectAuthApplyMessageById(Integer id) {
+		return authApplyMessageMapper.selectAuthApplyMessageById(id);
+	}
+
 }

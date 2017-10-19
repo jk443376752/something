@@ -23,11 +23,11 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-    <select id="selectLoginUserByUserName" parameterType="java.lang.String" resultType="com.buy.tsg.entity.LoginUser">
+    <select id="selectLoginUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
   	select * from t_loginuser where username =#{username}
   </select>
   
-  <select id="checkUser" parameterType="com.buy.tsg.entity.LoginUser" resultType="com.buy.tsg.entity.LoginUser">
+  <select id="checkUser" parameterType="com.buy.tsg.entity.LoginUser" resultMap="BaseResultMap">
   	select * from t_loginuser where username=#{username} and password=#{password}
   </select>
   

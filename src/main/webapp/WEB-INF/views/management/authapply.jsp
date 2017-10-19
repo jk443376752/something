@@ -196,7 +196,7 @@
 			            <div class="modal-footer">  
 			                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
 			                <!-- data-dismiss="modal"这个属性设置后可以取消模态框 -->
-			                <button type="button" id="myAddModelSubmit" name="" class="btn btn-primary">提交</button>  
+			                <button type="button" id="myAddModelSubmit" name="" data-dismiss="modal" class="btn btn-primary">提交</button>  
 			            </div>  
 			        </div>  
 			    </div>  
@@ -374,8 +374,29 @@
 				
 				//申请通过
 				function applyPass(id){
-					//发一个ajax请求 , 修改applyMessage的状态为1 , 1表示通过 , 2表示失败
-					alert("申请通过");
+					$.post("/management/authApplyPass",{id:id},function(data){
+						var remark = data.remark;
+						if(data.is_abnormal==1){
+							layer.alert(remark,{
+								title:'温馨提示',
+								//大小
+								area: ['350px', '180px'],
+								//坐标
+							    offset: '100px',
+							    //点击确认回调
+							    yes: function(index, layero){
+					    	    	layer.close(index);
+					    	    	location.reload();
+							    },
+							    
+							    //点击关闭回调
+							    cancel: function(index, layero){ 
+					    	    	layer.close(index);
+					    	    	location.reload();
+							    }
+							});
+						}
+					})
 				}
 				
 				//申请失败退回
@@ -390,16 +411,29 @@
 					var id = $("#myInputId").attr("value");
 					$.post("/management/authApplyReturn",{id:id,defeatMessage:defeatMessage},
 					function(data,status){
+						var remark = data.remark;
 						if(data.is_abnormal==1){
-							$("#myAddModelSubmit").attr("data-dismiss","modal");
-							window.location.reload;
+							layer.alert(remark,{
+								title:'温馨提示',
+								//大小
+								area: ['350px', '180px'],
+								//坐标
+							    offset: '100px',
+							    //点击确认回调
+							    yes: function(index, layero){
+					    	    	layer.close(index);
+					    	    	location.reload();
+							    },
+							    
+							    //点击关闭回调
+							    cancel: function(index, layero){ 
+					    	    	layer.close(index);
+					    	    	location.reload();
+							    }
+							});
 						}
-						
 					})
-
-
 				})
-
 		</script>
 	
 		

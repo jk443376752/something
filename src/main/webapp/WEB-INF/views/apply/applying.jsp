@@ -416,6 +416,11 @@
 							location.reload();
 						})
 					},
+					
+				    //点击关闭回调
+				    cancel: function(index, layero){ 
+		    	    	layer.close(index);
+				    }
 				});
 
 			}

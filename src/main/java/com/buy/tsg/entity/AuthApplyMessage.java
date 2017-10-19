@@ -15,6 +15,7 @@ public class AuthApplyMessage {
 
     private Date submitTime;
 
+    //0表示正在申请 ， 1表示申请成功 ，2表示申请失败
     private Byte status;
 	
 	private String beizhu;
@@ -92,4 +93,12 @@ public class AuthApplyMessage {
     public void setStatus(Byte status) {
         this.status = status;
     }
+
+	@Override
+	public String toString() {
+		return "AuthApplyMessage [id=" + id + ", applyName=" + applyName + ", applyTelphone=" + applyTelphone
+				+ ", submitName=" + submitName + ", submitTelphone=" + submitTelphone + ", submitTime=" + submitTime
+				+ ", status=" + status + ", beizhu=" + beizhu + ", defeatmessage=" + defeatmessage + "]";
+	}
+    
 }

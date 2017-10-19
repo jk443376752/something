@@ -220,7 +220,7 @@ public class AuthApplyMessageController {
 			return rif;
 		}
 		String appingId = (String)HttpSessionUtil.getSession().getAttribute("applyingId");
-		AuthApplyMessage authApplyMessageSession = authApplyMessageMapper.selectByPrimaryKey(Integer.valueOf(appingId));
+		AuthApplyMessage authApplyMessageSession = authApplyMessageMapper.selectAuthApplyMessageById(Integer.valueOf(appingId));
 		AuthApplyMessage applyTelphoneTemp = authApplyMessageMapper.
 				selectAuthApplyMessageByApplyTelphone(applyTelphone);
 		if(applyTelphoneTemp!=null&&!authApplyMessageSession.getApplyTelphone().equals(applyTelphone)){
@@ -361,7 +361,7 @@ public class AuthApplyMessageController {
 	public ResponseInfo updateAuthApplying(@RequestParam("id") String id) {
 		ResponseInfo rif = new ResponseInfo();
 		HttpSessionUtil.getSession().setAttribute("applyingId", id);
-		AuthApplyMessage primaryKey = authApplyMessageMapper.selectByPrimaryKey(Integer.valueOf(id));
+		AuthApplyMessage primaryKey = authApplyMessageMapper.selectAuthApplyMessageById(Integer.valueOf(id));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String format = sdf.format(primaryKey.getSubmitTime());
