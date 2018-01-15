@@ -31,7 +31,7 @@
             	/register/checkRegister=anon
                 /login/check=anon <!-- anon 表示需要匿名游客都可以访问 --> 
                 /main/manager = roles["manager"]<!-- 表示需要角色为root的用户才能访问 -->
-                /main = roles["admin"]
+                /main = roles["user"]
                 /** = authc<!-- authc 表示需要认证才访问的页面 -->
             </value>  
         </property>  
